@@ -40,11 +40,11 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                                         <ProductItem
                                             id={product.id}
                                             title={product.title}
-                                            imageURL={product.product_image[0]?.image || ''}
+                                            imageURL={product?.product_image && product?.product_image[0]?.image || ''}
                                             regular_price={product.regular_price}
                                             discount_price={product.discount_price}
                                             description={product.description}
-                                            alt_text={product.product_image[0]?.alt_text || ''}
+                                            alt_text={product?.product_image &&  product?.product_image[0]?.alt_text || ''}
                                         />
                                     </div>
                                 ))}

@@ -23,6 +23,7 @@ export default function Page() {
 	if (isLoading || isFetching) {
 		return (
 			<div className='flex justify-center my-8'>
+                loding...
 			</div>
 		);
 	}

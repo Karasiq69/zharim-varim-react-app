@@ -64,19 +64,19 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         })
     }
 
-   function getCartItemsWithDetails(): CartItemDetails[] {
-    const { data: categories } = useProductsByCategory();
-
-    const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
-
-    return cartItems.map(cartItem => {
-        const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
-        return {
-            ...cartItem,
-            ...productDetails,
-        };
-    });
-}
+//    function getCartItemsWithDetails(): CartItemDetails[] {
+//     // const { data: categories } = useProductsByCategory();
+//     const categories = []
+//     const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
+//
+//     return cartItems.map(cartItem => {
+//         const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
+//         return {
+//             ...cartItem,
+//             ...productDetails,
+//         };
+//     });
+// }
 
 
 
@@ -89,7 +89,7 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
             removeFromCart,
             cartItems,
             cartQuantity,
-            getCartItemsWithDetails,
+            // getCartItemsWithDetails,
         }}>
         {children}
     </ShoppingCartContext.Provider>

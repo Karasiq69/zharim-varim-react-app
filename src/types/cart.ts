@@ -9,7 +9,7 @@ export type ShoppingCartContext = {
     removeFromCart: (id: number) => void
     cartQuantity: number
     cartItems: CartItem[]
-    getCartItemsWithDetails: () => CartItemDetails[];
+    // getCartItemsWithDetails: () => CartItemDetails[];
 }
 
 export type CartItem = {

@@ -19,15 +19,17 @@ import CartItem from "@/components/CartItem";
 
 type Props = {};
 const CartIcon = (props: Props) => {
-    const {cartQuantity, cartItems, getCartItemsWithDetails, getItemQuantity} = useShoppingCart()
-    const cartItemsWithDetails = getCartItemsWithDetails();
+    const {cartQuantity, cartItems,
+        // getCartItemsWithDetails,
+        getItemQuantity} = useShoppingCart()
+    // const cartItemsWithDetails = getCartItemsWithDetails();
 
-    const totalCost = cartItems.reduce((total, cartItem) => {
-        const item = cartItemsWithDetails.find(i => i.id === cartItem.id);
-        const price = +(item?.regular_price ?? 0);
-        const quantity = cartItem.quantity ?? 0;
-        return total + price * quantity;
-    }, 0);
+    // const totalCost = cartItems.reduce((total, cartItem) => {
+    //     // const item = cartItemsWithDetails.find(i => i.id === cartItem.id);
+    //     const price = +(item?.regular_price ?? 0);
+    //     const quantity = cartItem.quantity ?? 0;
+    //     return total + price * quantity;
+    // }, 0);
 
 
     return (
@@ -46,38 +48,40 @@ const CartIcon = (props: Props) => {
                     </SheetTitle>
                 </SheetHeader>
                 <div>
-                    {cartQuantity > 0
-                        ? (
-                            <>
-                                <div className={'space-y-3 '}>
-                                    {cartItemsWithDetails.map(item => (
-                                        <div key={item.id} className={'bg-white p-3 drop-shadow-sm'}>
-                                            <CartItem
-                                                      id={item.id}
-                                                      description={item.description}
-                                                      product_image={item?.product_image}
-                                                      slug={item.slug}
-                                                      regular_price={item.regular_price}
-                                                      discount_price={item.discount_price}
-                                                      title={item.title ?? ''}
-                                                      quantity={getItemQuantity(item.id)}/>
-                                        </div>
-                                    ))}
+                    {/*<div>*/}
+                    {/*    {cartQuantity > 0*/}
+                    {/*        ? (*/}
+                    {/*            <>*/}
+                    {/*                <div className={'space-y-3 '}>*/}
+                    {/*                    {cartItemsWithDetails.map(item => (*/}
+                    {/*                        <div key={item.id} className={'bg-white p-3 drop-shadow-sm'}>*/}
+                    {/*                            <CartItem*/}
+                    {/*                                id={item.id}*/}
+                    {/*                                description={item.description}*/}
+                    {/*                                product_image={item?.product_image}*/}
+                    {/*                                slug={item.slug}*/}
+                    {/*                                regular_price={item.regular_price}*/}
+                    {/*                                discount_price={item.discount_price}*/}
+                    {/*                                title={item.title ?? ''}*/}
+                    {/*                                quantity={getItemQuantity(item.id)}/>*/}
+                    {/*                        </div>*/}
+                    {/*                    ))}*/}
 
-                                </div>
-                            </>
-                        ) : (<>
-                            <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>
-                                <div>
-                                    <img src="/cart-empty.webp" alt=""/>
-                                </div>
-                                <p>В корзине пусто</p>
-                                <Link className={buttonVariants({
-                                    variant: 'link',
-                                    size: 'sm'
-                                })} href={'/menu'}>Перейти в меню</Link>
-                            </div>
-                        </>)}
+                    {/*                </div>*/}
+                    {/*            </>*/}
+                    {/*        ) : (<>*/}
+                    {/*            <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>*/}
+                    {/*                <div>*/}
+                    {/*                    <img src="/cart-empty.webp" alt=""/>*/}
+                    {/*                </div>*/}
+                    {/*                <p>В корзине пусто</p>*/}
+                    {/*                <Link className={buttonVariants({*/}
+                    {/*                    variant: 'link',*/}
+                    {/*                    size: 'sm'*/}
+                    {/*                })} href={'/menu'}>Перейти в меню</Link>*/}
+                    {/*            </div>*/}
+                    {/*        </>)}*/}
+                    {/*</div>*/}
                 </div>
                 <div className={'p-5 space-y-5 bg-white  absolute bottom-0 w-full'}>
 
@@ -93,7 +97,7 @@ const CartIcon = (props: Props) => {
                         <Separator className={'my-5'}/>
                         <div className={'flex justify-between font-bold'}>
                             <div>Сумма заказа</div>
-                            <div>{formatPrice(totalCost)}</div>
+                            {/*<div>{formatPrice(totalCost)}</div>*/}
                         </div>
                     </div>
 

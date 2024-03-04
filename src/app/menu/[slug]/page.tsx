@@ -1,9 +1,13 @@
 import {getProduct} from "@/api/api";
 import {useParams} from "next/navigation";
 
-const ProductPage = async ({params}) => {
+type Props = {
+    params: any
+}
 
-    const productsData = await getProduct(params.slug)
+const ProductPage = async ({params}:Props) => {
+
+    const productsData = await getProduct(params?.slug)
 
 
     return (

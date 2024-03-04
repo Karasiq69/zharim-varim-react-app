@@ -8,17 +8,7 @@ const MenuPage = () => {
     console.log(data)
     return (
         <Container>
-            <div className={'my-10'}>dasadsexs</div>
-            <div>{isLoading && 'loading...'}</div>
-            <div>{data && data.map(item => (<div>
-                <div>
-                    <h3>{item.name}</h3>
-                    {item.products.map(product => (
-                        <div>{product.title}</div>
-                    ))}
-
-                </div>
-            </div>))}</div>
+            menu page
 
         </Container>
     );

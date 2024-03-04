@@ -6,7 +6,7 @@ export const useProducts = () => {
     return useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
-        enabled: false
+        enabled: true
 
     })
 }
@@ -16,6 +16,6 @@ export const useProductsByCategory = () => {
         queryKey: ['productsByCat'],
         queryFn: getProductsByCategory,
         staleTime: 1000 * 60 * 60 * 24,
-        enabled: false
+        enabled: true
     })
 }
