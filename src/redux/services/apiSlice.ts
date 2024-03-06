@@ -7,10 +7,9 @@ import type {
 import { setAuth, logout } from '../features/authSlice';
 import { Mutex } from 'async-mutex';
 
-console.log('next pub host',process.env.NEXT_PUBLIC_HOST)
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-	baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api/v1/auth/`,
+	baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api`,
 	credentials: 'include',
 });
 const baseQueryWithReauth: BaseQueryFn<
