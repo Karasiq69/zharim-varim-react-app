@@ -31,7 +31,7 @@ export default function LoginForm() {
             placeholder: 'Придумайте пароль',
             link: {
                 linkText: 'Забыли пароль?',
-                linkUrl: '/auth/password-reset/'
+                linkUrl: '/password-reset/'
             }
         },
 

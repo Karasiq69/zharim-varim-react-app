@@ -1,6 +1,6 @@
 'use client'
 import {useAppSelector} from "@/redux/hooks";
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import {useToast} from "@/components/ui/use-toast";
 
 type Props = {
@@ -9,7 +9,15 @@ type Props = {
 const RequireAuth = ({children}: Props) => {
     const router = useRouter()
     const {toast} = useToast()
-    const {isLoading, isAuthenticated} = useAppSelector(state => state.auth)
+    const {isLoading, isAuthenticated} = useAppSelector(state => state.auth);
+
+    if (isLoading) {
+		return (
+			<div className='flex justify-center my-8'>
+				агрузка reqauth...
+			</div>
+		);
+	}
 
     if (!isAuthenticated) {
         toast({
@@ -17,7 +25,7 @@ const RequireAuth = ({children}: Props) => {
             description: "Отказано в доступе.",
             variant: "destructive",
         })
-        router.push('/auth/login')
+        redirect('/auth/login')
     }
 
 

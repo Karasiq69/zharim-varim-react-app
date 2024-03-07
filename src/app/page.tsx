@@ -43,7 +43,7 @@ export default function Home() {
                 <MaxWidthWrapper>
 
                     <div className={'py-40 flex flex-col text-white'}>
-                        <h1 className={' '}>Мы варим кофе и писю <br/>
+                        <h1 className={' '}>Мы варим кофе <br/>
                             и жарим мясо.</h1>
 
                         <p className={'mt-5 max-w-xl  '}>

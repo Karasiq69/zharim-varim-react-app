@@ -32,7 +32,7 @@ const Register = (props: Props) => {
                         Уже есть профиль?{' '}
                         <a href={'login'}
                             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Войтиss
+                            Войти
                         </a>
                     </p>
                 </div>

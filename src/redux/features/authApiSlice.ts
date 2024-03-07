@@ -1,16 +1,15 @@
 import { apiSlice } from '../services/apiSlice';
 
 interface User {
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    phone: string;
+	first_name: string;
+	last_name: string;
+	email: string;
 }
 
 interface SocialAuthArgs {
-    code: string;
-    provider: string;
-    state: string;
+	provider: string;
+	state: string;
+	code: string;
 }
 
 interface CreateUserResponse {
@@ -49,14 +48,13 @@ const authApiSlice = apiSlice.injectEndpoints({
 			query: ({
 				first_name,
 				last_name,
-                phone,
 				email,
 				password,
 				re_password,
 			}) => ({
 				url: '/users/',
 				method: 'POST',
-				body: { first_name, last_name, email, phone, password, re_password },
+				body: { first_name, last_name, email, password, re_password },
 			}),
 		}),
 		verify: builder.mutation({

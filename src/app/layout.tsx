@@ -13,6 +13,7 @@ import {ShoppingCartProvider} from "@/app/context/ShoppingCartContext";
 import Provider from '@/redux/provider'
 import {Toaster} from "@/components/ui/toaster"
 import Footer from "@/components/Footer";
+import Setup from '@/components/utils/Setup';
 
 export const metadata: Metadata = {
     title: "Жарим Варим",
@@ -26,23 +27,27 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={'h-full'} suppressHydrationWarning>
-        <Provider>
-            <ShoppingCartProvider>
-                <body className={cn('relative h-full font-sans antialiased', inter.className)}>
+
+        <ShoppingCartProvider>
+            <body className={cn('relative h-full font-sans antialiased', inter.className)}>
+            <Provider>
+                <Setup/>
                 <main className={'relative flex flex-col min-h-screen'}>
                     <QueryClientProvider client={queryClient}>
 
                         <Navbar/>
                         <div className={'flex-grow flex-1'}>{children}</div>
                         <ReactQueryDevtools initialIsOpen={false}/>
+
                     </QueryClientProvider>
                     <Toaster/>
 
                 </main>
                 <Footer/>
-                </body>
-            </ShoppingCartProvider>
-        </Provider>
+            </Provider>
+            </body>
+        </ShoppingCartProvider>
+
         </html>
     );
 }

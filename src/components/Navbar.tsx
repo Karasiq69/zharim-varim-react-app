@@ -16,7 +16,7 @@ const Navbar = (props: Props) => {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const [logout] = useLogoutMutation();
-    const {isAuthenticated} = useAppSelector(state => state.auth);
+    const { isAuthenticated } = useAppSelector(state => state.auth);
 
     const handleLogout = () => {
         logout(undefined).unwrap()
