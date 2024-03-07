@@ -7,7 +7,7 @@ import CartIcon from "@/components/CartIcon";
 import {useAppSelector, useAppDispatch} from "@/redux/hooks";
 import {logout as setLogout} from "@/redux/features/authSlice";
 import {state} from "sucrase/dist/types/parser/traverser/base";
-import {useLogoutMutation} from "@/redux/features/authApiSlice";
+import {useLogoutMutation, useRetrieveUserQuery} from "@/redux/features/authApiSlice";
 import {useRouter} from "next/navigation";
 
 
@@ -16,7 +16,8 @@ const Navbar = (props: Props) => {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const [logout] = useLogoutMutation();
-    const { isAuthenticated } = useAppSelector(state => state.auth);
+    const {isLoading, isFetching} = useRetrieveUserQuery();
+    const {isAuthenticated} = useAppSelector(state => state.auth);
 
     const handleLogout = () => {
         logout(undefined).unwrap()
@@ -54,21 +55,21 @@ const Navbar = (props: Props) => {
                 </Link>
                 <div className={'flex gap-5 items-center'}>
 
-                    <CartIcon/>
-
-                    {isAuthenticated ?
-                        <Button className={''} variant="outline">
-                            <Link href={'/'} className={'flex items-center gap-2 font-medium'}>
-                                <User/> Профиль
-                            </Link>
-                        </Button>
-                        :
-                        <Button variant="outline">
-                            <Link href={'/auth/login/'}>
-                                Войти
-                            </Link>
-                        </Button>}
-
+                    {!isLoading && <>
+                        <CartIcon/>
+                        {isAuthenticated ?
+                            <Button className={''} variant="outline" asChild>
+                                <Link href={'my-account/'} className={'flex items-center gap-2 font-medium'}>
+                                    <User/> Профиль
+                                </Link>
+                            </Button>
+                            :
+                            <Button variant="outline" asChild>
+                                <Link href={'/auth/login/'}>
+                                    Войти
+                                </Link>
+                            </Button>}
+                    </>}
                 </div>
             </header>
         </div>
