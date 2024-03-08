@@ -14,7 +14,7 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({children}: { children: ReactNode }) {
 
-    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart',[]);
+    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
 
     const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0)
 
@@ -25,12 +25,11 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
 
     function increaseCartQuantity(id: number) {
         setCartItems(currItems => {
-            // Исправлено условие: проверяем, существует ли элемент
+
             if (currItems.find(item => item.id === id) == null) {
-                // Если элемента нет, добавляем его с количеством 1
-                return [...currItems, {id, quantity: 1}];
+                return [...currItems, {id, quantity: 1,'sex':'bubas'}];
             } else {
-                // Если элемент есть, увеличиваем его количество
+
                 return currItems.map(item => {
                     if (item.id === id) {
                         return {...item, quantity: item.quantity + 1};
@@ -64,21 +63,19 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         })
     }
 
-//    function getCartItemsWithDetails(): CartItemDetails[] {
-//     // const { data: categories } = useProductsByCategory();
-//     const categories = []
-//     const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
-//
-//     return cartItems.map(cartItem => {
-//         const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
-//         return {
-//             ...cartItem,
-//             ...productDetails,
-//         };
-//     });
-// }
-
-
+    // function getCartItemsWithDetails(): CartItemDetails[] {
+    //     const {data: categories} = useProductsByCategory();
+    //     // const categories = []
+    //     const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
+    //
+    //     return cartItems.map(cartItem => {
+    //         const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
+    //         return {
+    //             ...cartItem,
+    //             ...productDetails,
+    //         };
+    //     });
+    // }
 
 
     return <ShoppingCartContext.Provider

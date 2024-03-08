@@ -16,20 +16,38 @@ import Link from "next/link";
 import {formatPrice} from "@/lib/utils";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import CartItem from "@/components/CartItem";
+import Image from "next/image";
+import {CartItemDetails} from "@/types/cart";
+import {useProductsByCategory} from "@/api/queries";
+import {Product} from "@/types/types";
 
 type Props = {};
 const CartIcon = (props: Props) => {
     const {cartQuantity, cartItems,
         // getCartItemsWithDetails,
         getItemQuantity} = useShoppingCart()
-    // const cartItemsWithDetails = getCartItemsWithDetails();
 
-    // const totalCost = cartItems.reduce((total, cartItem) => {
-    //     // const item = cartItemsWithDetails.find(i => i.id === cartItem.id);
-    //     const price = +(item?.regular_price ?? 0);
-    //     const quantity = cartItem.quantity ?? 0;
-    //     return total + price * quantity;
-    // }, 0);
+      function useCartItemsWithDetails(): CartItemDetails[] {
+        const {data: categories} = useProductsByCategory();
+        // const categories = []
+        const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
+
+        return cartItems.map(cartItem => {
+            const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
+            return {
+                ...cartItem,
+                ...productDetails,
+            };
+        });
+    }
+    const cartItemsWithDetails = useCartItemsWithDetails();
+
+    const totalCost = cartItems.reduce((total, cartItem) => {
+        const item = cartItemsWithDetails.find(i => i.id === cartItem.id);
+        const price = +(item?.regular_price ?? 0);
+        const quantity = cartItem.quantity ?? 0;
+        return total + price * quantity;
+    }, 0);
 
 
     return (
@@ -40,7 +58,7 @@ const CartIcon = (props: Props) => {
                     className={'h-6 w-6 flex-shrink-0 text-gray-900 group-hover:text-gray-500'}/>
                 <span className={'ml-1 text-sm font-bold text-gray-600 group-hover:text-gray-500'}>{cartQuantity}</span>
             </SheetTrigger>
-            <SheetContent className={'bg-muted overflow-auto p-0'}>
+            <SheetContent className={'bg-muted overflow-auto p-0 h-svh'}>
                 <SheetHeader>
                     <SheetTitle className={'p-5'}>
                         <p>Корзина</p>
@@ -48,40 +66,40 @@ const CartIcon = (props: Props) => {
                     </SheetTitle>
                 </SheetHeader>
                 <div>
-                    {/*<div>*/}
-                    {/*    {cartQuantity > 0*/}
-                    {/*        ? (*/}
-                    {/*            <>*/}
-                    {/*                <div className={'space-y-3 '}>*/}
-                    {/*                    {cartItemsWithDetails.map(item => (*/}
-                    {/*                        <div key={item.id} className={'bg-white p-3 drop-shadow-sm'}>*/}
-                    {/*                            <CartItem*/}
-                    {/*                                id={item.id}*/}
-                    {/*                                description={item.description}*/}
-                    {/*                                product_image={item?.product_image}*/}
-                    {/*                                slug={item.slug}*/}
-                    {/*                                regular_price={item.regular_price}*/}
-                    {/*                                discount_price={item.discount_price}*/}
-                    {/*                                title={item.title ?? ''}*/}
-                    {/*                                quantity={getItemQuantity(item.id)}/>*/}
-                    {/*                        </div>*/}
-                    {/*                    ))}*/}
+                    <div>
+                        {cartQuantity > 0
+                            ? (
+                                <>
+                                    <div className={'space-y-3 '}>
+                                        {cartItemsWithDetails.map(item => (
+                                            <div key={item.id} className={'bg-white p-3 drop-shadow-sm'}>
+                                                <CartItem
+                                                    id={item.id}
+                                                    description={item.description}
+                                                    product_image={item?.product_image}
+                                                    slug={item.slug}
+                                                    regular_price={item.regular_price}
+                                                    discount_price={item.discount_price}
+                                                    title={item.title ?? ''}
+                                                    quantity={getItemQuantity(item.id)}/>
+                                            </div>
+                                        ))}
 
-                    {/*                </div>*/}
-                    {/*            </>*/}
-                    {/*        ) : (<>*/}
-                    {/*            <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>*/}
-                    {/*                <div>*/}
-                    {/*                    <img src="/cart-empty.webp" alt=""/>*/}
-                    {/*                </div>*/}
-                    {/*                <p>В корзине пусто</p>*/}
-                    {/*                <Link className={buttonVariants({*/}
-                    {/*                    variant: 'link',*/}
-                    {/*                    size: 'sm'*/}
-                    {/*                })} href={'/menu'}>Перейти в меню</Link>*/}
-                    {/*            </div>*/}
-                    {/*        </>)}*/}
-                    {/*</div>*/}
+                                    </div>
+                                </>
+                            ) : (<>
+                                <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>
+                                    <div>
+                                        <Image width={'500'} height={'500'} src="/empty-cart-icon.webp" className={'mix-blend-darken'} alt=""/>
+                                    </div>
+                                    <p>В корзине пусто</p>
+                                    <Link className={buttonVariants({
+                                        variant: 'link',
+                                        size: 'sm'
+                                    })} href={'/menu'}>Перейти в меню</Link>
+                                </div>
+                            </>)}
+                    </div>
                 </div>
                 <div className={'p-5 space-y-5 bg-white  absolute bottom-0 w-full'}>
 
@@ -97,7 +115,7 @@ const CartIcon = (props: Props) => {
                         <Separator className={'my-5'}/>
                         <div className={'flex justify-between font-bold'}>
                             <div>Сумма заказа</div>
-                            {/*<div>{formatPrice(totalCost)}</div>*/}
+                            <div>{formatPrice(totalCost)}</div>
                         </div>
                     </div>
 
