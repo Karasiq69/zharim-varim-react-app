@@ -1,8 +1,6 @@
 'use client'
 import {createContext, ReactNode, useContext, useState} from "react";
 import {CartItem, CartItemDetails, ShoppingCartContext} from "@/types/cart";
-import {useProductsByCategory} from "@/api/queries";
-import {Product} from "@/types/types";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 
 
@@ -27,7 +25,7 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         setCartItems(currItems => {
 
             if (currItems.find(item => item.id === id) == null) {
-                return [...currItems, {id, quantity: 1,'sex':'bubas'}];
+                return [...currItems, {id, quantity: 1, 'sex': 'bubas'}];
             } else {
 
                 return currItems.map(item => {
@@ -63,20 +61,6 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         })
     }
 
-    // function getCartItemsWithDetails(): CartItemDetails[] {
-    //     const {data: categories} = useProductsByCategory();
-    //     // const categories = []
-    //     const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
-    //
-    //     return cartItems.map(cartItem => {
-    //         const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
-    //         return {
-    //             ...cartItem,
-    //             ...productDetails,
-    //         };
-    //     });
-    // }
-
 
     return <ShoppingCartContext.Provider
         value={{
@@ -86,7 +70,6 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
             removeFromCart,
             cartItems,
             cartQuantity,
-            // getCartItemsWithDetails,
         }}>
         {children}
     </ShoppingCartContext.Provider>
