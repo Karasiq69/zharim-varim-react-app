@@ -12,6 +12,7 @@ const Page = (props: Props) => {
             <MaxWidthWrapper className={'mt-10 mb-20 h-full'}>
                 {!isLoading && <>
                     <CheckoutForm user={user} isLoading={isLoading}/>
+                    boop
                 </>}
             </MaxWidthWrapper>
 
