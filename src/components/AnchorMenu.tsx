@@ -22,6 +22,7 @@ const AnchorMenu: React.FC<AnchorMenuProps> = ({ isLoading, sections }) => {
 
   return (
     <div>
+        {/*TODO: Пофиксить мобилку*/}
       {!isLoading && sections.map(({slug, name}) => (
         <ScrollLink
           to={`#${slug}`}

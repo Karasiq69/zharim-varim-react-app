@@ -19,6 +19,7 @@ const Navbar = (props: Props) => {
     const {isLoading, isFetching} = useRetrieveUserQuery();
     const {isAuthenticated} = useAppSelector(state => state.auth);
 
+    // const isAuthenticated = false
     const handleLogout = () => {
         logout(undefined).unwrap()
             .then(() => {

@@ -9,6 +9,7 @@ import Container from "@/components/Container";
 import {useProductsByCategory} from "@/api/queries";
 import {useEffect, useState} from "react";
 import CartIcon from "@/components/CartIcon";
+import Image from "next/image";
 
 
 export default function Home() {
@@ -53,20 +54,21 @@ export default function Home() {
                         </p>
 
                         <div className={'mt-5'}>
-                            <Link href={'google.com'} className={buttonVariants()}> Построить маршрут</Link>
+                            <Link href={'pagetsx'} className={buttonVariants()}> Построить маршрут</Link>
                         </div>
                     </div>
 
                 </MaxWidthWrapper>
             </section>
 
-            <section
-                className={`bg-gray-200 sticky top-0 z-50 transition-all duration-200 ${isSticky ? 'bg-white bg-opacity-80 backdrop-blur-2xl shadow-md' : ''}`}>
+            <section className={`bg-gray-200 sticky top-0 z-50 transition-all duration-200 
+                ${isSticky ? 'bg-white bg-opacity-80 backdrop-blur-2xl shadow-md' : ''}`}
+            >
                 <Container className={'flex items-center justify-between'}>
                     <div className={'flex items-center'}>
                         {isSticky && (
                             <div className={'transition-transform duration-200 transform translate-x-0 '}>
-                                <img width={120} height={60} src="http://localhost:3000/logoblack.svg"  alt=""/>
+                                <Image width={'120'} height={60} src="/logoblack.svg"  alt=""/>
                             </div>
                         )}
                         <div
@@ -95,25 +97,6 @@ export default function Home() {
                     <Perks/>
                 </MaxWidthWrapper>
             </section>
-            <section id="section2" className={'py-20 my-10'}>
-                <MaxWidthWrapper>
-                    <div className={'mx-auto p-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4  '}>
-                        <div className={'  bg-emerald-100'}>
-                            <h3>sex</h3>
-                            <p>asdsddasjkhadslkj dasljdas das lhkdas kladsklhjadhksjl</p>
-
-                        </div>
-                        <div className={'  bg-emerald-100'}>
-                            <h3>sex</h3>
-                            <p>asdsddasjkhadslkj dasljdas das lhkdas kladsklhjadhksjl</p>
-                            <p>asdsddasjkhadslkj dasljdas das lhkdas kladsklhjadhksjl</p>
-                            <p>asdsddasjkhadslkj dasljdas das lhkdas kladsklhjadhksjl</p>
-
-                        </div>
-                    </div>
-                </MaxWidthWrapper>
-            </section>
-
         </>
     )
 }

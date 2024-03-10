@@ -23,11 +23,12 @@ import {Product} from "@/types/types";
 
 type Props = {};
 const CartIcon = (props: Props) => {
-    const {cartQuantity, cartItems,
-        // getCartItemsWithDetails,
-        getItemQuantity} = useShoppingCart()
+    const {
+        cartQuantity, cartItems,
+        getItemQuantity
+    } = useShoppingCart()
 
-      function useCartItemsWithDetails(): CartItemDetails[] {
+    function useCartItemsWithDetails(): CartItemDetails[] {
         const {data: categories} = useProductsByCategory();
         // const categories = []
         const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
@@ -40,6 +41,7 @@ const CartIcon = (props: Props) => {
             };
         });
     }
+
     const cartItemsWithDetails = useCartItemsWithDetails();
 
     const totalCost = cartItems.reduce((total, cartItem) => {
@@ -90,7 +92,8 @@ const CartIcon = (props: Props) => {
                             ) : (<>
                                 <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>
                                     <div>
-                                        <Image width={'500'} height={'500'} src="/empty-cart-icon.webp" className={'mix-blend-darken'} alt=""/>
+                                        <Image width={'500'} height={'500'} src="/empty-cart-icon.webp"
+                                               className={'mix-blend-darken'} alt=""/>
                                     </div>
                                     <p>В корзине пусто</p>
                                     <Link className={buttonVariants({
@@ -118,12 +121,13 @@ const CartIcon = (props: Props) => {
                             <div>{formatPrice(totalCost)}</div>
                         </div>
                     </div>
-
-                    <Link
-                        href={'/'}
-                        className={buttonVariants({className: 'w-full'})}>
-                        Перейти к оформлению заказа
-                    </Link>
+                    <SheetClose asChild>
+                        <Link
+                            href={'/checkout/'}
+                            className={buttonVariants({className: 'w-full'})}>
+                            Перейти к оформлению заказа
+                        </Link>
+                    </SheetClose>
                 </div>
             </SheetContent>
 

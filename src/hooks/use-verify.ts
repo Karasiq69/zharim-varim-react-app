@@ -9,6 +9,7 @@ export default function useVerify() {
 	const [verify] = useVerifyMutation();
 
 	useEffect(() => {
+
 		verify(undefined)
 			.unwrap()
 			.then(() => {

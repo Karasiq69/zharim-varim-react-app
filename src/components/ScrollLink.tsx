@@ -3,10 +3,9 @@ import Link, {LinkProps} from "next/link";
 import React, {PropsWithChildren} from "react";
 import {Button} from "@/components/ui/button";
 
-// Определение пропсов для ScrollLink
 interface ScrollLinkProps {
   children: React.ReactNode;
-  to: string; // Используйте 'to' вместо 'href' для идентификации цели скроллинга
+  to: string;
   style?: React.CSSProperties;
 }
 

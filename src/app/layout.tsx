@@ -26,28 +26,24 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={'h-full'} suppressHydrationWarning>
-
-        <ShoppingCartProvider>
-            <body className={cn('relative h-full font-sans antialiased', inter.className)}>
-            <Provider>
-                <Setup/>
-                <main className={'relative flex flex-col min-h-screen'}>
-                    <QueryClientProvider client={queryClient}>
-
+        <html lang="ru" suppressHydrationWarning>
+        <QueryClientProvider client={queryClient}>
+            <ShoppingCartProvider>
+                <body className="relative flex flex-col min-h-screen">
+                <Provider>
+                    <Setup/>
+                    <main className="relative flex flex-col flex-grow">
                         <Navbar/>
-                        <div className={'flex-grow flex-1'}>{children}</div>
+                        <div className="flex-grow">{children}</div>
                         <ReactQueryDevtools initialIsOpen={false}/>
-
-                    </QueryClientProvider>
-                    <Toaster/>
-
-                </main>
-                <Footer/>
-            </Provider>
-            </body>
-        </ShoppingCartProvider>
-
+                        <Toaster/>
+                    </main>
+                    <Footer/>
+                </Provider>
+                </body>
+            </ShoppingCartProvider>
+        </QueryClientProvider>
         </html>
+
     );
 }

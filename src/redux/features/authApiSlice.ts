@@ -1,10 +1,11 @@
 import { apiSlice } from '../services/apiSlice';
 
-interface User {
+export interface User {
 	first_name: string;
 	last_name: string;
 	email: string;
     id: number;
+    phone:any;
 }
 
 interface SocialAuthArgs {
@@ -20,9 +21,11 @@ interface CreateUserResponse {
 
 const authApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
+
 		retrieveUser: builder.query<User, void>({
 			query: () => '/users/me/',
 		}),
+
 		socialAuthenticate: builder.mutation<
 			CreateUserResponse,
 			SocialAuthArgs

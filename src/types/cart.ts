@@ -9,12 +9,13 @@ export type ShoppingCartContext = {
     removeFromCart: (id: number) => void
     cartQuantity: number
     cartItems: CartItem[]
-    // getCartItemsWithDetails: () => CartItemDetails[];
+    calculateTotalCost: () => number
+    cartItemsWithDetails: any,
 }
 
 export type CartItem = {
     id: number
-    quantity:number
+    quantity: number
 }
 
 export type CartItemDetails = CartItem & Partial<Product>;

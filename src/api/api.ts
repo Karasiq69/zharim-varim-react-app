@@ -1,7 +1,7 @@
 import axios from "axios";
 import {Category, MenuItem} from "@/types/types";
 
-const baseUrl = 'https://api.zharim-varim.top/api/v1';
+const baseUrl = `${process.env.NEXT_PUBLIC_HOST}/api/v1`;
 export const axiosInstance = axios.create({baseURL: baseUrl})
 
 export const getProducts = async () => {
