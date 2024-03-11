@@ -2,7 +2,7 @@ import CheckoutUserForm from "@/components/forms/CheckoutUserForm";
 import Divider from "@/components/ui/Divider";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {Label} from "@/components/ui/label";
-import {ChevronLeft, ChevronRight, CreditCard, HandCoins} from "lucide-react";
+import {ChevronLeft, ChevronRight, CreditCard, HandCoins, Nfc} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import CheckoutTotals from "@/app/checkout/components/CheckoutTotals";
@@ -11,6 +11,10 @@ import {Textarea} from "@/components/ui/textarea";
 import {Controller, useForm} from "react-hook-form";
 import {User} from "@/redux/features/authApiSlice";
 import {useState} from "react";
+import {useCreateOrder} from "@/api/mutations";
+import {useLocalStorage} from "@/hooks/useLocalStorage";
+import {useShoppingCart} from "@/app/context/ShoppingCartContext";
+import LoadingButton from "@/components/ui/loading-button";
 
 // interface User {
 //     phone: string;
@@ -24,8 +28,47 @@ interface CheckoutFormProps {
     isLoading: boolean;
 }
 
+const sex_data = {
+    "order_items": [
+        {
+            "product": 1,
+            "id": 1,
+            "price": 100,
+            "quantity": 2
+        },
+        {
+            "product": 2,
+            "id": 1,
+            "price": 150,
+            "quantity": 1
+        }
+    ],
+    "total_cost": 3506,
+    "order_type": "delivery",
+    "comment": "Быстрая доставка, пожалуйста!!!",
+    "payment_method": "Наличные при доставке",
+    "status": "created",
+    "address": {
+        "zipcode": "123456",
+        "city": "Москва",
+        "address": "ул. Примерная, д. 101",
+        "place": "кв. 5",
+        "address_name": "Домашний адрес"
+    }
+}
+
+
 const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
-    // const [paymentMethodState, setPaymentMethodState] = useState('card');
+    const {cartItems, calculateTotalCost} = useShoppingCart()
+    const totalCost = calculateTotalCost()
+    const {mutate, isSuccess, isPending} = useCreateOrder();
+    const [selectedPaymentOption,
+        setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
+    const handletestclick = () => {
+        mutate(sex_data)
+    }
+    const [paymentRadio, setPaymentRadio] = useState('');
+
 
     const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
         defaultValues: {
@@ -33,21 +76,40 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             name: user?.first_name ?? '',
             phone: user?.phone ?? '',
             address: 'дефолть адрес в форме',
-            paymentMethod: 'card',
+            paymentMethod: paymentRadio,
+
         }
     });
-    const onSubmit = (data: any) => {
+    const onSubmit = (formData: any) => {
+        const orderData = {
+            order_items: cartItems,
+            total_cost: totalCost,
+            order_type: 'delivery',
+            comment: 'test comment',
+            payment_method: selectedPaymentOption,
+            status: "pending",
+            address: {
+                zipcode: '123312132',
+                city: 'Москва',
+                address: formData.address,
+                place: '',
+                address_name: ''
+            }
+        }
+        mutate(orderData)
+        console.log(orderData);
 
-        console.log(data);
 
+    };
+
+    const handleValueChange = (e:any) => {
+        setSelectedPaymentOption(e);
     };
 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-
             <div className="flex flex-col md:flex-row justify-between gap-10">
-
                 <div className="md:w-2/5">
                     <section className={''}>
                         <h2 className={'font-medium'}>Оформление заказа</h2>
@@ -71,9 +133,11 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                                 </div>
                                 <div className="grid w-full max-w-sm items-center gap-1.5">
                                     <Label htmlFor="address">Адрес доставки</Label>
-                                    <Textarea {...register('address', {required: 'Это поле обязательно'})} id="address"
+                                    <Textarea {...register('address', {required: 'Это поле обязательно'})}
+                                              id="address"
                                               placeholder="Введите адрес доставки"/>
-                                    {errors.address && <p className={'text-destructive'}>{errors.address.message}</p>}
+                                    {errors.address &&
+                                        <p className={'text-destructive'}>{errors.address.message}</p>}
                                 </div>
                             </div>
                         </div>
@@ -81,43 +145,49 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                     <Divider/>
                     <section>
                         <h3 className={'font-medium'}>Оплата</h3>
-                        <div className="flex w-full max-w-sm items-center">
-                            <Controller
-                                name="paymentMethod"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <div className="flex w-full max-w-sm items-center">
-                                        <div className="grid grid-cols-3 gap-4 mt-10">
-                                            {/* Для каждой радио кнопки */}
-                                            {["card", "sbp", "cash"].map((method, index) => (
-                                                <div key={index}>
-                                                    <input
-                                                        type="radio"
-                                                        value={method}
-                                                        id={method}
-                                                        className="peer sr-only"
-                                                        checked={value === method}
-                                                        onChange={() => onChange(method)}
-                                                    />
-                                                    <label
-                                                        htmlFor={method}
-                                                        className={`flex flex-col items-center justify-between rounded-md 
-                                                        border-2 p-4 hover:bg-accent hover:text-accent-foreground ${value === method ? 'border-primary bg-popover' : 'border-muted'}`}
-                                                    >
-                                                        {/* Динамически изменяемые иконки и текст */}
-                                                        {method === "card" && "Картой"}
-                                                        {method === "sbp" && "СБП"}
-                                                        {method === "cash" && "Наличными"}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            />
-
-
+                        <div className={'my-7'}>
+                            <RadioGroup onValueChange={handleValueChange}
+                                        defaultValue={selectedPaymentOption}
+                                        className="grid grid-cols-3 gap-4">
+                                <div>
+                                    <RadioGroupItem value="card" id="card" className="peer sr-only"/>
+                                    <Label
+                                        htmlFor="card"
+                                        className="flex flex-col items-center justify-between rounded-md
+                                        border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground
+                                        peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                    >
+                                        <CreditCard height={40}/>
+                                        Картой
+                                    </Label>
+                                </div>
+                                <div>
+                                    <RadioGroupItem
+                                        value="sbp"
+                                        id="sbp"
+                                        className="peer sr-only"
+                                    />
+                                    <Label
+                                        htmlFor="sbp"
+                                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                    >
+                                        <Nfc height={40}/>
+                                        СБП
+                                    </Label>
+                                </div>
+                                <div>
+                                    <RadioGroupItem value="cash" id="cash" className="peer sr-only"/>
+                                    <Label
+                                        htmlFor="cash"
+                                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                    >
+                                        <HandCoins height={40}/>
+                                        Наличными
+                                    </Label>
+                                </div>
+                            </RadioGroup>
                         </div>
+
                     </section>
                     <Divider/>
                     <section className={'my-10 space-y-2'}>
@@ -150,10 +220,10 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                                 </Button>
                             </div>
                             <div>
-                                <Button type={"submit"} size={'lg'} variant={'default'}>
+                                <LoadingButton isLoading={isPending} type={"submit"} size={'lg'} variant={'default'}>
                                     Оформить заказ
                                     <ChevronRight/>
-                                </Button>
+                                </LoadingButton>
                             </div>
                         </div>
                     </section>

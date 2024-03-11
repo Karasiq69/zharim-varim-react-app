@@ -30,7 +30,7 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         setCartItems(currItems => {
 
             if (currItems.find(item => item.id === id) == null) {
-                return [...currItems, {id, quantity: 1, 'sex': 'bubas'}];
+                return [...currItems, {id, quantity: 1}];
             } else {
 
                 return currItems.map(item => {
