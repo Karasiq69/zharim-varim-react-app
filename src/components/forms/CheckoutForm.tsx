@@ -10,65 +10,25 @@ import {Checkbox} from "@/components/ui/checkbox";
 import {Textarea} from "@/components/ui/textarea";
 import {Controller, useForm} from "react-hook-form";
 import {User} from "@/redux/features/authApiSlice";
-import {useState} from "react";
-import {useCreateOrder} from "@/api/mutations";
+import {useCreateOrderMutation} from "@/api/mutations";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import LoadingButton from "@/components/ui/loading-button";
 
-// interface User {
-//     phone: string;
-//     id: number;
-//     email: string;
-//     first_name: string;
-// }
 
 interface CheckoutFormProps {
     user?: User;
     isLoading: boolean;
 }
 
-const sex_data = {
-    "order_items": [
-        {
-            "product": 1,
-            "id": 1,
-            "price": 100,
-            "quantity": 2
-        },
-        {
-            "product": 2,
-            "id": 1,
-            "price": 150,
-            "quantity": 1
-        }
-    ],
-    "total_cost": 3506,
-    "order_type": "delivery",
-    "comment": "Быстрая доставка, пожалуйста!!!",
-    "payment_method": "Наличные при доставке",
-    "status": "created",
-    "address": {
-        "zipcode": "123456",
-        "city": "Москва",
-        "address": "ул. Примерная, д. 101",
-        "place": "кв. 5",
-        "address_name": "Домашний адрес"
-    }
-}
-
-
 const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
     const {cartItems, calculateTotalCost} = useShoppingCart()
     const totalCost = calculateTotalCost()
-    const {mutate, isSuccess, isPending} = useCreateOrder();
+    const {mutate, isSuccess, isPending, data} = useCreateOrderMutation();
     const [selectedPaymentOption,
         setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
-    const handletestclick = () => {
-        mutate(sex_data)
-    }
-    const [paymentRadio, setPaymentRadio] = useState('');
 
+    data && console.log(data.data.url, 'DATA  use create order checkout form')
 
     const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
         defaultValues: {
@@ -76,7 +36,7 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             name: user?.first_name ?? '',
             phone: user?.phone ?? '',
             address: 'дефолть адрес в форме',
-            paymentMethod: paymentRadio,
+            // paymentMethod: selectedPaymentOption,
 
         }
     });
@@ -97,7 +57,7 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             }
         }
         mutate(orderData)
-        console.log(orderData);
+        console.log(orderData, 'FROM checkoutForm ttsx');
 
 
     };
@@ -143,6 +103,7 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                         </div>
                     </section>
                     <Divider/>
+
                     <section>
                         <h3 className={'font-medium'}>Оплата</h3>
                         <div className={'my-7'}>

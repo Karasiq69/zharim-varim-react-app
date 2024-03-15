@@ -3,13 +3,11 @@ import {
     Sheet,
     SheetClose,
     SheetContent,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
 import {ShoppingCart} from "lucide-react";
-import Divider from "@/components/ui/Divider";
 import {Separator} from "@/components/ui/separator";
 import {Button, buttonVariants} from "@/components/ui/button";
 import Link from "next/link";
@@ -17,39 +15,16 @@ import {formatPrice} from "@/lib/utils";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import CartItem from "@/components/CartItem";
 import Image from "next/image";
-import {CartItemDetails} from "@/types/cart";
-import {useProductsByCategory} from "@/api/queries";
-import {Product} from "@/types/types";
 
 type Props = {};
 const CartIcon = (props: Props) => {
     const {
-        cartQuantity, cartItems,
-        getItemQuantity
-    } = useShoppingCart()
+        cartQuantity,
+        cartItems,
+        calculateTotalCost,
+    } = useShoppingCart();
 
-    function useCartItemsWithDetails(): CartItemDetails[] {
-        const {data: categories} = useProductsByCategory();
-        // const categories = []
-        const allProducts: Product[] = categories?.reduce((acc: Product[], category) => [...acc, ...category.products], []) ?? [];
-
-        return cartItems.map(cartItem => {
-            const productDetails = allProducts.find((product: Product) => product.id === cartItem.id);
-            return {
-                ...cartItem,
-                ...productDetails,
-            };
-        });
-    }
-
-    const cartItemsWithDetails = useCartItemsWithDetails();
-
-    const totalCost = cartItems.reduce((total, cartItem) => {
-        const item = cartItemsWithDetails.find(i => i.id === cartItem.id);
-        const price = +(item?.regular_price ?? 0);
-        const quantity = cartItem.quantity ?? 0;
-        return total + price * quantity;
-    }, 0);
+    const totalCost = calculateTotalCost();
 
 
     return (
@@ -73,17 +48,12 @@ const CartIcon = (props: Props) => {
                             ? (
                                 <>
                                     <div className={'space-y-3 '}>
-                                        {cartItemsWithDetails.map(item => (
-                                            <div key={item.id} className={'bg-white p-3 drop-shadow-sm'}>
+                                        {cartItems.map(item => (
+                                            <div key={item.product.id} className={'bg-white p-3 drop-shadow-sm'}>
                                                 <CartItem
-                                                    id={item.id}
-                                                    description={item.description}
-                                                    product_image={item?.product_image}
-                                                    slug={item.slug}
-                                                    regular_price={item.regular_price}
-                                                    discount_price={item.discount_price}
-                                                    title={item.title ?? ''}
-                                                    quantity={getItemQuantity(item.id)}/>
+                                                    product={item.product}
+                                                    quantity={item.quantity}
+                                                />
                                             </div>
                                         ))}
 

@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {getProducts, getProductsByCategory} from "@/api/api";
+import {getLastOrder, getProducts, getProductsByCategory} from "@/api/api";
 import {Category} from "@/types/types";
 
 export const useProducts = () => {
@@ -17,5 +17,13 @@ export const useProductsByCategory = () => {
         queryFn: getProductsByCategory,
         staleTime: 1000 * 60 * 60 * 24,
         enabled: true
+    })
+}
+export const useGetLastOrder = () => {
+    return useQuery({
+        queryKey: ['last_order'],
+        queryFn: getLastOrder,
+        enabled: true
+
     })
 }

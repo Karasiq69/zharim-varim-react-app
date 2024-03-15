@@ -25,3 +25,8 @@ export const createOrder = async (data: any) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.post('/add/', data))
 }
+
+export const getLastOrder = async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return (await axiosInstance.get('/get-last-order/')).data
+}

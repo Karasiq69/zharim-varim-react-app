@@ -5,22 +5,26 @@ import {useToast} from "@/components/ui/use-toast";
 import {router} from "next/client";
 import {useRouter} from "next/navigation";
 
-export function useCreateOrder() {
+export function useCreateOrderMutation() {
     const {toast} = useToast()
     const router = useRouter();
 
     return useMutation({
         mutationFn: (data: any) => createOrder(data),
-        onMutate: () => {
-        },
-        onSuccess: () => {
-            toast({
-                title: "Успешно!",
-                description: "Переход на главную страницу..",
-                variant: "default",
-                duration: 2000,
-            })
-            router.push('/checkout/thank-you-page')
+        onSuccess: (data) => {
+            const yookassaURL = data.data.url
+            if (yookassaURL) {
+              window.location.href = yookassaURL
+            } else {
+                toast({
+                    title: "Успешно!",
+                    description: "Благодарим за заказ!",
+                    variant: "success",
+                    duration: 2000,
+                });
+                // Перенаправление на страницу благодарности в той же вкладке
+                router.push('/checkout/thank-you-page');
+            }
         },
         onError: () => {
             toast({

@@ -92,6 +92,7 @@ export default function Home() {
                 </MaxWidthWrapper>
             </section>
 
+
             <section className={'py-20 my-10'}>
                 <MaxWidthWrapper>
                     <Perks/>

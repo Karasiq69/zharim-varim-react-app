@@ -38,14 +38,9 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                                     <div key={product.id}
                                          className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
                                         <ProductItem
-                                            id={product.id}
-                                            title={product.title}
-                                            imageURL={product?.product_image && product?.product_image[0]?.image || ''}
-                                            regular_price={product.regular_price}
-                                            discount_price={product.discount_price}
-                                            description={product.description}
-                                            alt_text={product?.product_image &&  product?.product_image[0]?.alt_text || ''}
-                                        />
+  key={product.id}
+  product={product}
+/>
                                     </div>
                                 ))}
                             </div>

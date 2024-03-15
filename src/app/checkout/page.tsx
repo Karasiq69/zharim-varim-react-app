@@ -2,13 +2,10 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {useRetrieveUserQuery} from "@/redux/features/authApiSlice";
 import CheckoutForm from "@/components/forms/CheckoutForm";
-import {Button} from "@/components/ui/button";
-import {useCreateOrder} from "@/api/mutations";
-import LoadingButton from "@/components/ui/loading-button";
 
 type Props = {};
 const Page = (props: Props) => {
-    const {data:user, isLoading, isFetching} = useRetrieveUserQuery();
+    const {data: user, isLoading, isFetching} = useRetrieveUserQuery();
 
     return (
         <>

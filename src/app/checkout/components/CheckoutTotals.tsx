@@ -14,11 +14,13 @@ import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import CheckoutItem from "@/components/CheckoutItem";
 import {formatPrice} from "@/lib/utils";
 import {Product} from "@/types/types";
+import {CartItem} from "@/types/cart";
 
 const CheckoutTotals = (props: Props) => {
     const {
         cartQuantity,
-        cartItemsWithDetails, calculateTotalCost
+        cartItems,
+        calculateTotalCost
     } = useShoppingCart()
     const totalCost = calculateTotalCost()
 
@@ -31,12 +33,12 @@ const CheckoutTotals = (props: Props) => {
                 </CardHeader>
                 <Divider className={'my-0'}/>
                 <CardContent className={'space-y-2 mt-5'}>
-                    {cartItemsWithDetails.map((item:Product) => {
+                    {cartItems.map((item: CartItem) => {
                         return (
-                            <div key={item.id}>
-                                <CheckoutItem item={item}/>
+                            <div key={item.product.id}>
+                                <CheckoutItem product={item.product}/>
                             </div>
-                        )
+                        );
                     })}
                 </CardContent>
                 <Separator className="my-5"/>
