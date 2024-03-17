@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {getLastOrder, getProducts, getProductsByCategory} from "@/api/api";
+import {getLastOrder, getOrderById, getProducts, getProductsByCategory} from "@/api/api";
 import {Category} from "@/types/types";
 
 export const useProducts = () => {
@@ -27,3 +27,11 @@ export const useGetLastOrder = () => {
 
     })
 }
+export const useGetOrderById = (id: number) => {
+    return useQuery({
+        queryKey: ['order', id],
+        queryFn: () => getOrderById(id),
+        enabled: !!id,
+    });
+};
+

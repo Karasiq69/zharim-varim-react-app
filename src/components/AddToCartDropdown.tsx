@@ -7,18 +7,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {Button} from "@/components/ui/button";
-import {Specifications} from "@/types/types";
+import {Attribute, Specifications} from "@/types/types";
 import {formatPrice} from "@/lib/utils";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 
 type Props = {
     id: number
-    specifications: Specifications[]
+    attributes: Attribute[]
 };
 
 const AddToCartDropdown = (props: Props) => {
-    // const {addToCart} = useShoppingCart()
-
 
     return (
         <DropdownMenu>
@@ -28,7 +26,7 @@ const AddToCartDropdown = (props: Props) => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Выберите размер:</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
-                {props.specifications.map((spec) => (
+                {props.attributes.map((spec) => (
                     <DropdownMenuItem key={spec.value} >
                         <div className={'flex   justify-between gap-3'}>
                             <span className="h-6 w-6  font-bold flex items-center">{spec.value}</span>

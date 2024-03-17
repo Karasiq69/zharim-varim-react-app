@@ -1,6 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {formatPrice} from "@/lib/utils";
-import {Product, Specifications} from "@/types/types";
+import {Attribute, AttributeValue, Product, Specifications} from "@/types/types";
 import {Minus, Plus} from "lucide-react";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import {
@@ -20,13 +20,13 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
         title,
         regular_price,
         description,
-        specifications,
+        attribute_values,
         weight,
     } = product;
 
     const {getItemQuantity, decreaseCartQuantity, increaseCartQuantity, addToCart} = useShoppingCart()
     const quantity = getItemQuantity(product)
-    const isSpecifications = specifications.length > 0
+    const isSpecifications = attribute_values?.length > 0
 
     const productImage = product?.product_image?.[0];
 
@@ -57,12 +57,12 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                     <DropdownMenuContent>
                                         <DropdownMenuLabel>Выберите размер:</DropdownMenuLabel>
                                         <DropdownMenuSeparator/>
-                                        {specifications?.map((spec: Specifications) => (
+                                        {attribute_values?.map((spec: AttributeValue) => (
                                             <DropdownMenuItem key={spec.value}
                                                               onClick={() =>
                                                                   addToCart({
                                                                       ...product,
-                                                                      attributes: {size: spec.value}
+                                                                      selectedAttribute: spec,
                                                                   })
                                                               }>
                                                 <div className={'flex justify-between gap-3'}>

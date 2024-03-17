@@ -11,27 +11,26 @@ type CartItemProps = {
     quantity: number;
 };
 
-const CartItem: React.FC<CartItemProps> = ({product, quantity}) => {
+const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
     const {
         removeFromCart,
         increaseCartQuantity,
         decreaseCartQuantity,
+        getProductPrice,
     } = useShoppingCart();
 
     const {
         id,
         title,
         description,
-        regular_price,
         product_image,
-        attributes,
-        specifications,
+        selectedAttribute,
+        attribute_values,
         weight,
     } = product;
 
-    const numericPrice = typeof regular_price === 'string' ? parseFloat(regular_price) : regular_price ?? 0;
-    const totalQuantity = quantity;
-    const totalPrice = numericPrice * totalQuantity;
+    const price = getProductPrice(product);
+    const totalPrice = price * quantity;
     const formattedPrice = formatPrice(totalPrice);
 
     return (
@@ -49,24 +48,26 @@ const CartItem: React.FC<CartItemProps> = ({product, quantity}) => {
                     )}
                 </div>
                 <div className={'space-y-1 flex-col'}>
-                    <p className={'font-bold'}>{title} <span className={'text-muted-foreground font-light text-sm'}>{weight && `${weight}г`}</span></p>
-                    {attributes && <span className={'text-xs text-muted-foreground'}>Размер: {attributes.size}</span>}
+                    <p className={'font-bold'}>{title} <span
+                        className={'text-muted-foreground font-light text-sm'}>{weight && `${weight}г`}</span></p>
+                    {selectedAttribute && <span
+                        className={'text-xs text-muted-foreground'}>{selectedAttribute.attribute.name}: {selectedAttribute?.value}</span>}
                     <p className={'text-muted-foreground text-sm'}>{description}</p>
                 </div>
             </div>
-            <Separator className={'my-3'}/>
+            <Separator className={'my-3'} />
             <div className={'flex justify-between items-center'}>
-                <div className={'font-bold'}>{formattedPrice}</div>
+                <div className={'font-bold'}>{formattedPrice} </div>
                 <div className={'flex items-center gap-3 rounded-xl'}>
                     <div>
                         <Button variant="outline" size={'sm'} onClick={() => increaseCartQuantity(product)}>
-                            <Plus size={15}/>
+                            <Plus size={15} />
                         </Button>
                     </div>
                     <p className={'font-medium text-gray-600 items-center'}>{quantity}</p>
                     <div>
                         <Button variant="outline" size={'sm'} onClick={() => decreaseCartQuantity(product)}>
-                            <Minus size={15}/>
+                            <Minus size={15} />
                         </Button>
                     </div>
                 </div>

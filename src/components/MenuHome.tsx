@@ -7,11 +7,10 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {Category} from '@/types/types'
 
 
-
 const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: boolean, isSuccess: boolean }) => {
     const skeletons = [...Array(8)].map((_, index) => (
-            <div key={index} className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
-                <SkeletonCard key={index}/></div>
+        <div key={index} className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
+            <SkeletonCard key={index}/></div>
     ));
 
     return (
@@ -38,9 +37,9 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                                     <div key={product.id}
                                          className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
                                         <ProductItem
-  key={product.id}
-  product={product}
-/>
+                                            key={product.id}
+                                            product={product}
+                                        />
                                     </div>
                                 ))}
                             </div>

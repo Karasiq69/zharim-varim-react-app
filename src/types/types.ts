@@ -58,10 +58,6 @@ export type Specifications = {
 // }
 
 
-export interface CategoryDisplayProps {
-    title: string;
-    categories: Category[];
-}
 
 
 export type ProductImage = {
@@ -69,13 +65,27 @@ export type ProductImage = {
     alt_text: string | null;
 };
 
-export type Specification = {
-    specification_name: string;
+
+// export type Specification = {
+//     specification_name: string;
+//     value: string;
+//     price: string;
+// };
+
+export type Attribute = {
+    id: number;
+    name: string;
+    category: number;
+};
+
+export type AttributeValue = {
+    id: number;
+    attribute: Attribute;
     value: string;
     price: string;
 };
 
-export  type Product = {
+export type Product = {
     id: number;
     title: string;
     description: string;
@@ -85,8 +95,15 @@ export  type Product = {
     product_image: ProductImage[];
     category: number;
     weight: string | null;
-    attributes?: ProductAttributes;
-    specifications: Specifications[]
+    attribute_values: AttributeValue[];
+    selectedAttribute?: AttributeValue;
+};
+
+export type CartItem = {
+    product: Product;
+    quantity: number;
+
+
 };
 
 export type ProductAttributes = {

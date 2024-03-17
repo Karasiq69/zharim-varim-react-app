@@ -21,28 +21,63 @@ interface CheckoutFormProps {
     isLoading: boolean;
 }
 
-const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
-    const {cartItems, calculateTotalCost} = useShoppingCart()
-    const totalCost = calculateTotalCost()
-    const {mutate, isSuccess, isPending, data} = useCreateOrderMutation();
-    const [selectedPaymentOption,
-        setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
 
-    data && console.log(data.data.url, 'DATA  use create order checkout form')
+const testOrder = {
 
-    const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
+    "address": 2,
+    "comment": "Пожалуйста, доставьте заказ как можно скорее",
+    "order_type": "delivery",
+    "payment_method": "cash",
+    "items": [
+        {
+            "product": 1,
+            "quantity": 2,
+            "attribute_values": [
+                3
+            ]
+        },
+        {
+            "product": 2,
+            "quantity": 1
+        },
+        {
+            "product": 3,
+            "quantity": 3,
+            "attribute_values": [
+                1,
+                2
+            ]
+        }
+    ]
+}
+
+
+const CheckoutForm = ({ user, isLoading }: CheckoutFormProps) => {
+    const { cartItems, calculateTotalCost } = useShoppingCart();
+    const totalCost = calculateTotalCost();
+    const { mutate, isSuccess, isPending, data } = useCreateOrderMutation();
+    const [selectedPaymentOption, setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
+
+    data && console.log(data.data.url, 'DATA  use create order checkout form');
+
+    const { register, handleSubmit, formState: { errors }, watch, control } = useForm({
         defaultValues: {
             user_id: user?.id ?? '',
             name: user?.first_name ?? '',
             phone: user?.phone ?? '',
             address: 'дефолть адрес в форме',
             // paymentMethod: selectedPaymentOption,
-
         }
     });
     const onSubmit = (formData: any) => {
+        const transformedItems = cartItems.map(item => ({
+            product: item.product.id,
+            quantity: item.quantity,
+            attribute_values: item.product.selectedAttribute ? [item.product.selectedAttribute.id] : []
+        }));
+
         const orderData = {
-            order_items: cartItems,
+            items: transformedItems,
             total_cost: totalCost,
             order_type: 'delivery',
             comment: 'test comment',
@@ -52,17 +87,16 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                 zipcode: '123312132',
                 city: 'Москва',
                 address: formData.address,
-                place: '',
-                address_name: ''
+                place: 'выфвфывфы',
+                address_name: 'фыввыфвфы'
             }
-        }
-        mutate(orderData)
+        };
+
+        mutate(orderData);
         console.log(orderData, 'FROM checkoutForm ttsx');
-
-
     };
 
-    const handleValueChange = (e:any) => {
+    const handleValueChange = (e: any) => {
         setSelectedPaymentOption(e);
     };
 

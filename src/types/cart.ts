@@ -1,31 +1,16 @@
-import {Product, Specifications} from "@/types/types";
-
-
-// export type ShoppingCartContext = {
-//     openCart?: () => void
-//     getItemQuantity: (id: number) => number
-//     increaseCartQuantity: (id: number) => void
-//     decreaseCartQuantity: (id: number) => void
-//     removeFromCart: (id: number) => void
-//     cartQuantity: number
-//     cartItems: CartItem[]
-//     calculateTotalCost: () => number
-//     cartItemsWithDetails: any,
-//     addToCart: any,
-// }
+import {Attribute, AttributeValue, CartItem, Product, Specifications} from "@/types/types";
 
 export type ShoppingCartContext = {
     getItemQuantity: (product: Product) => number;
-    addToCart: (product: Product, quantity?: number) => void;
+    addToCart: (product: Product, selectedAttribute?: AttributeValue) => void;
     increaseCartQuantity: (product: Product) => void;
     decreaseCartQuantity: (product: Product) => void;
     removeFromCart: (product: Product) => void;
     calculateTotalCost: () => number
     cartItems: CartItem[];
     cartQuantity: number
+    getProductPrice: (product: Product) => number
+    clearCart: () => void;
 };
 
-export interface CartItem {
-    product: Product
-    quantity: number;
-}
+

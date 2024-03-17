@@ -33,9 +33,10 @@ const CheckoutTotals = (props: Props) => {
                 </CardHeader>
                 <Divider className={'my-0'}/>
                 <CardContent className={'space-y-2 mt-5'}>
-                    {cartItems.map((item: CartItem) => {
+                    {cartItems.map((item: CartItem, index) => {
                         return (
-                            <div key={item.product.id}>
+                            //TODO Пофиксить index
+                            <div key={index}>
                                 <CheckoutItem product={item.product}/>
                             </div>
                         );

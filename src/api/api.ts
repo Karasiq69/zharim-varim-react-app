@@ -1,11 +1,14 @@
-import axios from "axios";
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
 import {Category, MenuItem} from "@/types/types";
+import {axiosInstance} from './axiosInstance';
 
-const baseUrl = `${process.env.NEXT_PUBLIC_HOST}/api/v1`;
-export const axiosInstance = axios.create({
-    baseURL: baseUrl,
-    withCredentials: true,
-})
+// const baseUrl = `${process.env.NEXT_PUBLIC_HOST}/api/v1`;
+// export const axiosInstance = axios.create({
+//     baseURL: baseUrl,
+//     withCredentials: true,
+// })
+
+
 
 export const getProducts = async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -30,3 +33,7 @@ export const getLastOrder = async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.get('/get-last-order/')).data
 }
+export const getOrderById = async (id: number) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return (await axiosInstance.get(`/orders/${id}`)).data;
+};
