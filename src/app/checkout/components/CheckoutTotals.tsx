@@ -13,8 +13,8 @@ import {Separator} from "@/components/ui/separator";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import CheckoutItem from "@/components/CheckoutItem";
 import {formatPrice} from "@/lib/utils";
-import {Product} from "@/types/types";
-import {CartItem} from "@/types/cart";
+import {CartItem, Product} from "@/types/types";
+
 
 const CheckoutTotals = (props: Props) => {
     const {

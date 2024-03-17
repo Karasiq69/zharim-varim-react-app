@@ -2,7 +2,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Container from "@/components/Container";
 import {useActivationMutation} from "@/redux/features/authApiSlice";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {toast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
 
@@ -13,33 +13,35 @@ type Props = {
     }
 };
 const Page = ({params}: Props) => {
-    const [activation] = useActivationMutation();
+        const [activation] = useActivationMutation();
     const router = useRouter();
 
-    useEffect(() => {
-        const {uid, token} = params;
+    const activateAccount = useCallback(async () => {
+        const { uid, token } = params;
 
-        activation({uid, token}).unwrap()
-            .then(() => {
-                toast({
-                    title: "Аккаунт активирован",
-                    description: "Приятных покупок!",
-                    variant: "default",
-                    className: 'bg-green-200'
-
-                })
-            }).catch(() => {
+        try {
+            await activation({ uid, token }).unwrap();
+            toast({
+                title: "Аккаунт активирован",
+                description: "Приятных покупок!",
+                variant: "default",
+                className: "bg-green-200",
+            });
+        } catch (error) {
             toast({
                 title: "Возникла ошибка.",
-                description: "Не удалось активировать аккаунт. Возможно ссылка устарела или уже была использована.",
+                description:
+                    "Не удалось активировать аккаунт. Возможно ссылка устарела или уже была использована.",
                 variant: "destructive",
-            })
-        }).finally(()=>{
-            router.push('/auth/login')
-            }
+            });
+        } finally {
+            router.push("/auth/login");
+        }
+    }, [activation, params, router]);
 
-        )
-    }, []);
+    useEffect(() => {
+        activateAccount();
+    }, [activateAccount]);
 
 
     return (

@@ -26,17 +26,6 @@ const AddToCartDropdown = (props: Props) => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Выберите размер:</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
-                {props.attributes.map((spec) => (
-                    <DropdownMenuItem key={spec.value} >
-                        <div className={'flex   justify-between gap-3'}>
-                            <span className="h-6 w-6  font-bold flex items-center">{spec.value}</span>
-                            <div className={'flex gap-3'}>
-                                <p className={'text-gray-600'}>Добавить за</p>
-                                <span className={'  font-bold flex items-center'}>{formatPrice(spec.price)}</span>
-                            </div>
-                        </div>
-                    </DropdownMenuItem>
-                ))}
 
 
             </DropdownMenuContent>

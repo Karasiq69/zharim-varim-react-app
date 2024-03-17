@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 type ProductItemProps = {
     product: Product;
@@ -34,7 +35,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
         <>
 
             <div className="flex flex-col h-full rounded-t-sm">
-                <img className="rounded-t-sm" src={productImage?.image || ''}
+                <Image className="rounded-t-sm" src={productImage?.image || ''}
                      alt={productImage?.alt_text || ''}/>
 
                 <div className="p-4 pb-3 space-y-2 flex-grow">

@@ -9,6 +9,7 @@ import {logout as setLogout} from "@/redux/features/authSlice";
 import {state} from "sucrase/dist/types/parser/traverser/base";
 import {useLogoutMutation, useRetrieveUserQuery} from "@/redux/features/authApiSlice";
 import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 
 type Props = {};
@@ -42,7 +43,7 @@ const Navbar = (props: Props) => {
             <header className="flex justify-between items-center container max-w-6xl">
 
                 <Link className="flex items-center" href="/">
-                    <img
+                    <Image
                         alt="Logo"
                         className="rounded-full"
                         height="70"

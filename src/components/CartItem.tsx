@@ -5,6 +5,7 @@ import {Product} from "@/types/types";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {Minus, Plus} from "lucide-react";
+import Image from "next/image";
 
 type CartItemProps = {
     product: Product;
@@ -38,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
             <div className={'flex gap-3'}>
                 <div className={'flex-shrink-0'}>
                     {product_image && (
-                        <img
+                        <Image
                             height={80}
                             width={80}
                             className={'rounded-md'}
