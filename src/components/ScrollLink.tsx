@@ -9,7 +9,7 @@ interface ScrollLinkProps {
     style?: React.CSSProperties;
 }
 
-const ScrollLink: React.FC<ScrollLinkProps> = ({children, to, style}) => {
+const ScrollLink: React.FC<ScrollLinkProps> = ({children, to, style,  }) => {
     const handleScroll = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         const targetId = to.replace(/.*#/, "");
@@ -23,7 +23,7 @@ const ScrollLink: React.FC<ScrollLinkProps> = ({children, to, style}) => {
     };
 
     return (
-        <Button onClick={handleScroll} variant='link' style={style}>
+        <Button   onClick={handleScroll} variant='ghost' style={style}>
             {children}
         </Button>
     );

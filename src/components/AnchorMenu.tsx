@@ -29,22 +29,18 @@ const AnchorMenu: React.FC<AnchorMenuProps> = ({isLoading, sections}) => {
     const activeSection = useActiveSection(sectionSlugs);
 
     return (
-        <div>
-
-
-
-            {/*TODO: Пофиксить мобилку*/}
-            <div>
-            {!isLoading && sections.map(({slug, name}) => (
-                <ScrollLink
-                    to={`#${slug}`}
-                    key={slug}
-                    style={{color: activeSection === slug ? 'green' : 'black'}}
-                >
-                    {name}
-                </ScrollLink>
-            ))}
-                </div>
+        <div className="max-w-max">
+            <div className="flex">
+                {!isLoading && sections.map(({slug, name}) => (
+                    <ScrollLink
+                        to={`#${slug}`}
+                        key={slug}
+                        style={{color: activeSection === slug ? 'green  ' : 'black'}}
+                    >
+                        {name}
+                    </ScrollLink>
+                ))}
+            </div>
         </div>
     );
 };

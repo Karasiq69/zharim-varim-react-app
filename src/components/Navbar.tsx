@@ -37,7 +37,6 @@ const Navbar = (props: Props) => {
         <div>guest links</div>
     )
 
-    const user = 1;
     return (
         <div className={' p-3 shadow-md '}>
             <header className="flex justify-between items-center container max-w-6xl">

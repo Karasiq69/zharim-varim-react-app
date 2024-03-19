@@ -38,12 +38,13 @@ export default function useLogin() {
                 })
                 router.push('/')
             })
-            .catch(() => {
+            .catch((error) => {
+                const errorMessage = error.error || "!!2Проверьте правильность введенных данных и повторите попытку";
                 toast({
                     title: "Возникла ошибка.",
-                    description: "Проверьте правильность введенных данных и повторите попытку",
+                    description: errorMessage,
                     variant: "destructive",
-                })
+                });
             })
     }
     return {

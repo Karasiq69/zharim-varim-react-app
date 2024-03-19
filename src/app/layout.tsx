@@ -29,7 +29,7 @@ export default function RootLayout({
         <html lang="ru" suppressHydrationWarning>
         <QueryClientProvider client={queryClient}>
             <ShoppingCartProvider>
-                <body className="relative flex flex-col min-h-screen">
+                <body className="relative flex flex-col min-h-svh">
                 <Provider>
                     <Setup/>
                     <main className="relative flex flex-col flex-grow">

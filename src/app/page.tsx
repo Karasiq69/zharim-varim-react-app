@@ -1,7 +1,7 @@
 'use client'
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Link from "next/link";
-import {buttonVariants} from "@/components/ui/button";
+import {Button, buttonVariants} from "@/components/ui/button";
 import Perks from "@/components/Perks";
 import MenuHome from "@/components/MenuHome";
 import AnchorMenu from "@/components/AnchorMenu";
@@ -10,6 +10,7 @@ import {useProductsByCategory} from "@/api/queries";
 import {useEffect, useState} from "react";
 import CartIcon from "@/components/CartIcon";
 import Image from "next/image";
+import {ChefHat, MoveUp} from "lucide-react";
 
 
 export default function Home() {
@@ -61,17 +62,20 @@ export default function Home() {
                 </MaxWidthWrapper>
             </section>
 
-            <section className={`bg-gray-200 sticky top-0 z-50 transition-all duration-200 
+            <section className={`bg-gray-200 sticky top-0 z-50 transition-all duration-200 overflow-x-auto   scroll-smooth 
                 ${isSticky ? 'bg-white bg-opacity-80 backdrop-blur-2xl shadow-md' : ''}`}
             >
                 <Container className={'flex items-center justify-between'}>
                     <div className={'flex items-center'}>
                         {isSticky && (
-                            <div className={'transition-transform duration-200 transform translate-x-0 '}>
-                                <Image width={'120'} height={60} src="/logoblack.svg" alt=""/>
+                            <div className={'  transition-transform duration-200 transform translate-x-1 '}>
+                                {/*<Image width={'120'} height={60} src="/logoblack.svg" alt=""/>*/}
+                                <Button asChild size={'icon'} variant={"ghost"}><Link
+                                    href={'#'}><MoveUp/></Link></Button>
                             </div>
                         )}
-                        <div className={`p-2 transition-transform duration-200 transform ${isSticky ? 'translate-x-5' : 'translate-x-0'}`}>
+                        <div
+                            className={`py-4 transition-transform duration-200 transform ${isSticky ? 'translate-x-1' : 'translate-x-0'} `}>
                             <AnchorMenu isLoading={isLoading} sections={sections}/>
                         </div>
                     </div>
@@ -83,7 +87,6 @@ export default function Home() {
                 </Container>
 
             </section>
-
             <section className={'py-10 bg-gray-200'}>
                 <MaxWidthWrapper>
                     <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>
