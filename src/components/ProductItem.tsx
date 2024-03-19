@@ -35,7 +35,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
         <>
 
             <div className="flex flex-col h-full rounded-t-sm">
-                <Image className="rounded-t-sm" src={productImage?.image || ''}
+                <Image width={900} height={900} className="rounded-t-sm" src={productImage?.image || ''}
                      alt={productImage?.alt_text || ''}/>
 
                 <div className="p-4 pb-3 space-y-2 flex-grow">

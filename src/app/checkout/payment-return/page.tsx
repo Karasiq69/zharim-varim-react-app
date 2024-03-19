@@ -13,18 +13,18 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {useEffect} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
+import {useLocalStorage} from "@/hooks/useLocalStorage";
 
 const Page = () => {
-    // const {data, isLoading, isSuccess, isError, error} = useGetLastOrder();
-    const searchParams = useSearchParams();
-    const order_id = searchParams.get('order_id');
-    const { data, isLoading, isSuccess, isError, error, refetch } = useGetOrderById(Number(order_id));
+      const [latestOrder] = useLocalStorage('latest_order', '');
+
+    const { data, isLoading, isSuccess, isError, error, refetch } = useGetOrderById(Number(latestOrder));
 
     useEffect(() => {
-        if (order_id) {
+        if (latestOrder) {
             refetch();
         }
-    }, [order_id, refetch]);
+    }, [latestOrder, refetch]);
 
     let cardTitle, cardDescription, cardIcon;
 
@@ -56,7 +56,7 @@ const Page = () => {
                         <CardHeader className={'space-y-5'}>
                             {cardIcon}
                             <CardTitle>
-                                {!order_id && <div className={'text-destructive'}>Не удалось найти ваш заказ. Повторите попытку позже</div>}
+                                {!latestOrder && <div className={'text-destructive'}>Не удалось найти ваш заказ. Повторите попытку позже</div>}
                                 {cardTitle}
                             </CardTitle>
                             <CardDescription>

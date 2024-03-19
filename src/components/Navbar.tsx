@@ -49,7 +49,6 @@ const Navbar = (props: Props) => {
                         height="70"
                         src="/logoblack.svg"
                         style={{
-
                             objectFit: "cover",
                         }}
                         width="150"

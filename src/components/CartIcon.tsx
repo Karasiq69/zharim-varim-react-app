@@ -11,7 +11,7 @@ import {ShoppingCart} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {Button, buttonVariants} from "@/components/ui/button";
 import Link from "next/link";
-import {formatPrice} from "@/lib/utils";
+import {cn, formatPrice} from "@/lib/utils";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import CartItem from "@/components/CartItem";
 import Image from "next/image";
@@ -94,8 +94,12 @@ const CartIcon = (props: Props) => {
                     <SheetClose asChild>
                         <Link
                             href={'/checkout/'}
-                            className={buttonVariants({className: 'w-full'})}>
-                            Перейти к оформлению заказа
+                            className={cn(
+                                buttonVariants({variant: 'default', className: 'w-full'}),
+                                cartQuantity == 0 && 'pointer-events-none opacity-50',
+                            )}
+                        >
+                            Оформить заказ
                         </Link>
                     </SheetClose>
                 </div>

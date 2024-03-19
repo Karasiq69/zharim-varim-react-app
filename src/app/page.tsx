@@ -68,17 +68,15 @@ export default function Home() {
                     <div className={'flex items-center'}>
                         {isSticky && (
                             <div className={'transition-transform duration-200 transform translate-x-0 '}>
-                                <Image width={'120'} height={60} src="/logoblack.svg"  alt=""/>
+                                <Image width={'120'} height={60} src="/logoblack.svg" alt=""/>
                             </div>
                         )}
-                        <div
-                            className={` p-2 transition-transform duration-200 transform ${isSticky ? 'translate-x-5' : 'translate-x-0'}`}>
+                        <div className={`p-2 transition-transform duration-200 transform ${isSticky ? 'translate-x-5' : 'translate-x-0'}`}>
                             <AnchorMenu isLoading={isLoading} sections={sections}/>
                         </div>
                     </div>
-
                     {isSticky && (
-                        <div className={'transition-all duration-200'}>
+                        <div className={'transition-all duration-200 hidden lg:block'}>
                             <CartIcon/>
                         </div>
                     )}

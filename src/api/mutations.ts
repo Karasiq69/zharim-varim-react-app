@@ -4,17 +4,22 @@ import {queryClient} from "@/lib/QueryProvider";
 import {useToast} from "@/components/ui/use-toast";
 import {router} from "next/client";
 import {useRouter} from "next/navigation";
+import {useLocalStorage} from "@/hooks/useLocalStorage";
 
 export function useCreateOrderMutation() {
     const {toast} = useToast()
     const router = useRouter();
+    const [, setLatestOrder] = useLocalStorage('latest_order', '');
+
 
     return useMutation({
         mutationFn: (data: any) => createOrder(data),
         onSuccess: (data) => {
             const yookassaURL = data.data.url
-            if (yookassaURL) {
-              window.location.href = yookassaURL
+            const order_id = data.data.order_id
+            if (yookassaURL && order_id) {
+                setLatestOrder(order_id);
+                window.location.href = yookassaURL
             } else {
                 toast({
                     title: "Успешно!",
