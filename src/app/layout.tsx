@@ -33,7 +33,7 @@ export default function RootLayout({
                 <Provider>
                     <Setup/>
                     <main className="relative flex flex-col flex-grow">
-                        <Navbar/>
+                        {/*<Navbar/>*/}
                         <div className="flex-grow">{children}</div>
                         <ReactQueryDevtools initialIsOpen={false}/>
                         <Toaster />

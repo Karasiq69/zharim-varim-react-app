@@ -88,9 +88,9 @@ export default function Home() {
 
             </section>
             <section className={'py-10 bg-gray-200'}>
-                {/*<MaxWidthWrapper>*/}
-                {/*    <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>*/}
-                {/*</MaxWidthWrapper>*/}
+                <MaxWidthWrapper>
+                    <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>
+                </MaxWidthWrapper>
             </section>
 
 
