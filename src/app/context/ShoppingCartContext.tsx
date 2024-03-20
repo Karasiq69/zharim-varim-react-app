@@ -4,6 +4,8 @@ import {ShoppingCartContext} from "@/types/cart";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {AttributeValue, CartItem, MenuItem, Product} from "@/types/types";
 import {useProductsByCategory} from "@/api/queries";
+import {useToast} from "@/components/ui/use-toast";
+import {BadgeCheck} from "lucide-react";
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext)
 
@@ -13,6 +15,7 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({children}: { children: ReactNode }) {
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', [])
+    const {toast} = useToast();
 
     function getItemQuantity(product: Product) {
         const item = cartItems.find((item) => isSameProduct(item.product, product));
@@ -37,6 +40,12 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
                 quantity: 1,
             };
             setCartItems([...cartItems, newCartItem]);
+            toast({
+                description: <div className={'flex gap-5'}>
+                    <div><BadgeCheck className={'text-green-600'}/></div>
+                    <div>Товар добавлен</div>
+                </div>,
+            })
         }
     }
 

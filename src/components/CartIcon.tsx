@@ -28,39 +28,38 @@ const CartIcon = (props: Props) => {
 
 
     return (
-        <Sheet>
-            <SheetTrigger className={'group -m-2 flex items-center p-5'}>
-                <ShoppingCart
-                    aria-hidden="true"
-                    className={'h-6 w-6 flex-shrink-0 text-gray-900 group-hover:text-gray-500'}/>
-                <span className={'ml-1 text-sm font-bold text-gray-600 group-hover:text-gray-500'}>{cartQuantity}</span>
-            </SheetTrigger>
-            <SheetContent className={'bg-muted overflow-auto p-0 h-svh'}>
+    <Sheet>
+        <SheetTrigger className={'group -m-2 flex items-center p-5'}>
+            <ShoppingCart
+                aria-hidden="true"
+                className={'h-6 w-6 flex-shrink-0 text-gray-900 group-hover:text-gray-500'}/>
+            <span className={'ml-1 text-sm font-bold text-gray-600 group-hover:text-gray-500'}>{cartQuantity}</span>
+        </SheetTrigger>
+        <SheetContent className={'bg-muted overflow-auto p-0 h-svh'}>
+            <div className="flex flex-col h-full">
                 <SheetHeader>
                     <SheetTitle className={'p-5'}>
                         <p>Корзина</p>
-                        <Separator className={'my-5'}/>
                     </SheetTitle>
                 </SheetHeader>
-                <div>
-                    <div>
-                        {cartQuantity > 0
-                            ? (
-                                <>
-                                    <div className={'space-y-3 '}>
-                                        {cartItems.map(item => (
-                                            <div key={item.product.id} className={'bg-white p-3 drop-shadow-sm'}>
-                                                <CartItem
-                                                    product={item.product}
-                                                    quantity={item.quantity}
-                                                />
-                                            </div>
-                                        ))}
-
-                                    </div>
-                                </>
-                            ) : (<>
-                                <div className={'flex  h-full flex-col items-center justify-center space-y-3'}>
+                <div className={'flex-grow overflow-y-auto py-3'}>
+                    {cartQuantity > 0
+                        ? (
+                            <>
+                                <div className={'space-y-3'}>
+                                    {cartItems.map(item => (
+                                        <div key={item.product.id} className={'bg-white p-3 drop-shadow-sm'}>
+                                            <CartItem
+                                                product={item.product}
+                                                quantity={item.quantity}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className={'flex h-full flex-col items-center justify-center space-y-3'}>
                                     <div>
                                         <Image width={'500'} height={'500'} src="/empty-cart-icon.webp"
                                                className={'mix-blend-darken'} alt=""/>
@@ -71,11 +70,10 @@ const CartIcon = (props: Props) => {
                                         size: 'sm'
                                     })} href={'/menu'}>Перейти в меню</Link>
                                 </div>
-                            </>)}
-                    </div>
+                            </>
+                        )}
                 </div>
-                <div className={'p-5 space-y-5 bg-white  absolute bottom-0 w-full'}>
-
+                <div className={'p-5 space-y-5 bg-white drop-shadow-sm'}>
                     <div className={'text-sm'}>
                         <div className={'flex justify-between'}>
                             <p>Товаров в корзине: <span className={'font-medium'}>{cartQuantity}</span></p>
@@ -103,9 +101,9 @@ const CartIcon = (props: Props) => {
                         </Link>
                     </SheetClose>
                 </div>
-            </SheetContent>
-
-        </Sheet>
-    );
+            </div>
+        </SheetContent>
+    </Sheet>
+);
 };
 export default CartIcon;

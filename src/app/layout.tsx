@@ -36,7 +36,7 @@ export default function RootLayout({
                         <Navbar/>
                         <div className="flex-grow">{children}</div>
                         <ReactQueryDevtools initialIsOpen={false}/>
-                        <Toaster/>
+                        <Toaster />
                     </main>
                     <Footer/>
                 </Provider>
