@@ -32,7 +32,7 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                         <div id={category.slug} key={category.id}>
                             <h3 className={'my-10'}>{category.name}</h3>
                             <div
-                                className={'mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 auto-rows-fr'}>
+                                className={'mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4  '}>
                                 {category?.products?.map((product) => (
                                     <div key={product.id}
                                          className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>

@@ -49,28 +49,10 @@ export type Specifications = {
 
 }
 
-// export interface Category {
-//     id: number;
-//     name: string;
-//     slug: string;
-//     is_active: boolean;
-//     products: Product[];
-// }
-
-
-
-
 export type ProductImage = {
     image: string;
     alt_text: string | null;
 };
-
-
-// export type Specification = {
-//     specification_name: string;
-//     value: string;
-//     price: string;
-// };
 
 export type Attribute = {
     id: number;
@@ -102,8 +84,6 @@ export type Product = {
 export type CartItem = {
     product: Product;
     quantity: number;
-
-
 };
 
 export type ProductAttributes = {
