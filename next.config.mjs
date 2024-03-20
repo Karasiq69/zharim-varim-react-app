@@ -4,7 +4,7 @@ const nextConfig = {
     // images: {
     //   domains: [process.env.NEXT_PUBLIC_HOST?.replace(/^https?:\/\//, '') || 'localhost'],
     // },
-    distDir: 'build',
+    // distDir: 'build',
     images: {
         remotePatterns: [
             {
