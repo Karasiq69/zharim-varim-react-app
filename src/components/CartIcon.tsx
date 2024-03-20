@@ -48,10 +48,10 @@ const CartIcon = (props: Props) => {
                             <>
                                 <div className={'space-y-3'}>
                                     {cartItems.map(item => (
-                                        <div key={item.product.id} className={'bg-white p-3 drop-shadow-sm'}>
+                                        <div key={item?.product?.id} className={'bg-white p-3 drop-shadow-sm'}>
                                             <CartItem
-                                                product={item.product}
-                                                quantity={item.quantity}
+                                                product={item?.product}
+                                                quantity={item?.quantity}
                                             />
                                         </div>
                                     ))}

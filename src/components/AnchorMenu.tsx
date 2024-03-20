@@ -31,7 +31,7 @@ const AnchorMenu: React.FC<AnchorMenuProps> = ({isLoading, sections}) => {
     return (
         <div className="max-w-max">
             <div className="flex">
-                {!isLoading && sections.map(({slug, name}) => (
+                {!isLoading && sections?.map(({slug, name}) => (
                     <ScrollLink
                         to={`#${slug}`}
                         key={slug}
