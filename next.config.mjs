@@ -21,6 +21,8 @@ const nextConfig = {
                 port: '8000',
             },
         ],
+        distDir: 'build',
+
     },
 
 };
