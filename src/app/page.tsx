@@ -39,9 +39,14 @@ export default function Home() {
 
     return (
         <>
-            <section id="hero" style={{backgroundImage: "url('/herobg.webp')"}}
-                     className={"relative  bg-cover bg-center bg-no-repeat "}>
-                <div className="absolute inset-0 bg-stone-800 bg-opacity-50"></div>
+            <section id="hero" className="relative bg-cover bg-center bg-no-repeat">
+                <Image
+                    src="/herobg.webp"
+                    alt="Hero Background"
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                />
                 <MaxWidthWrapper>
 
                     <div className={'py-40 flex flex-col text-white'}>
