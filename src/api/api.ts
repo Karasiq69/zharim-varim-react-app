@@ -7,7 +7,6 @@ export const getProducts = async () => {
 }
 
 export const getProductsByCategory = async () => {
-    // await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.get<Category[]>('v1/products-by-category/')).data;
 }
 
@@ -25,6 +24,5 @@ export const getLastOrder = async () => {
     return (await axiosInstance.get('v1/get-last-order/')).data
 }
 export const getOrderById = async (id: number) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.get(`v1/orders/${id}`)).data;
 };

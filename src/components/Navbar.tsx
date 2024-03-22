@@ -11,6 +11,7 @@ import {useLogoutMutation, useRetrieveUserQuery} from "@/redux/features/authApiS
 import {useRouter} from "next/navigation";
 import Image from "next/image";
 
+import logoblack from '../../public/logoblack.svg'
 
 type Props = {};
 const Navbar = (props: Props) => {
@@ -46,10 +47,7 @@ const Navbar = (props: Props) => {
                         alt="Logo"
                         className="rounded-full"
                         height="70"
-                        src="/logoblack.svg"
-                        style={{
-                            objectFit: "cover",
-                        }}
+                        src={logoblack}
                         width="150"
                     />
                 </Link>

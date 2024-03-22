@@ -16,7 +16,6 @@ export const useProductsByCategory = () => {
         queryKey: ['productsByCat'],
         queryFn: getProductsByCategory,
         staleTime: 1000 * 60 * 60 * 24,
-        enabled: true
     })
 }
 export const useGetLastOrder = () => {

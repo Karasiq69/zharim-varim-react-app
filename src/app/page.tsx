@@ -7,7 +7,7 @@ import MenuHome from "@/components/MenuHome";
 import AnchorMenu from "@/components/AnchorMenu";
 import Container from "@/components/Container";
 import {useProductsByCategory} from "@/api/queries";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import CartIcon from "@/components/CartIcon";
 import Image from "next/image";
 import {ChefHat, MoveUp} from "lucide-react";
@@ -17,18 +17,23 @@ export default function Home() {
     const {data = [], isLoading, isSuccess} = useProductsByCategory();
 
     const sections = isSuccess
-        ? Array.from(new Set(data.map(({slug, name}) => ({slug, name}))))
+        ? Array.from(new Set(data?.map(({slug, name}) => ({slug, name}))))
         : [];
 
 
     const [isSticky, setSticky] = useState(false);
 
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
         const scrollTop = window.scrollY;
         setSticky(scrollTop >= 710);
-    };
+    }, []);
 
     useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            setSticky(scrollTop >= 710);
+        };
+
         window.addEventListener('scroll', handleScroll);
 
         return () => {

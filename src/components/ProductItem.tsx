@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import placeholder from '../../public/placeholder.webp'
 
 type ProductItemProps = {
     product: Product;
@@ -35,8 +36,8 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
         <>
 
             <div className="flex flex-col h-full rounded-t-sm">
-                <Image width={900} height={900} className="rounded-t-sm" src={productImage?.image || '/placeholder.webp'}
-                     alt={productImage?.alt_text || ''}/>
+                <Image width={260} height={195} className="rounded-t-sm" src={productImage?.image}
+                       alt={productImage?.alt_text || ''}/>
 
                 <div className="p-4 pb-3 space-y-2 flex-grow">
                     <h4 className="font-bold">
@@ -107,12 +108,8 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                     </div>
                                 }
                             </>
-
                         }
-
-
                     </div>
-
                 </div>
             </div>
 
