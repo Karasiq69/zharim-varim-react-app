@@ -44,10 +44,10 @@ const RegisterForm = (props: Props) => {
         {
             labelText: 'Телефон',
             labelId: 'phone',
-            type: 'phone',
+            type: 'text',
             value: phone,
             required: true,
-            placeholder: 'Телефон',
+            placeholder: 'Телефон!',
         },
         {
             labelText: 'Пароль',

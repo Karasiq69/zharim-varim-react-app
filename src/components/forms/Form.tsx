@@ -42,7 +42,6 @@ const Form = ({onSubmit, isLoading, btnText, onChange, config}: Props) => {
                         placeholder={input.placeholder}
                         required={input.required}
                         link={input.link}
-
                     >
                         {input.labelText}
                     </InputWithLabel>

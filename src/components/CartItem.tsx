@@ -6,6 +6,8 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {Minus, Plus} from "lucide-react";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge"
+import placeholderImage from "../../public/placeholder.webp";
 
 type CartItemProps = {
     product: Product;
@@ -33,6 +35,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
     const price = getProductPrice(product);
     const totalPrice = price * quantity;
     const formattedPrice = formatPrice(totalPrice);
+    const productImageSrc = product?.product_image?.[0]?.image || placeholderImage;
 
     return (
         <div>
@@ -43,7 +46,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
                             height={80}
                             width={80}
                             className={'rounded-md'}
-                            src={product_image[0]?.image}
+                            src={productImageSrc}
                             alt={product_image[0]?.alt_text || ''}
                         />
                     )}
@@ -52,23 +55,27 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
                     <p className={'font-bold'}>{title} <span
                         className={'text-muted-foreground font-light text-sm'}>{weight && `${weight}г`}</span></p>
                     {selectedAttribute && <span
-                        className={'text-xs text-muted-foreground'}>{selectedAttribute.attribute.name}: {selectedAttribute?.value}</span>}
+                        className={'text-xs text-muted-foreground'}><Badge variant="outline">{selectedAttribute?.value} мл</Badge></span>}
                     <p className={'text-muted-foreground text-sm'}>{description}</p>
                 </div>
             </div>
             <Separator className={'my-3'} />
-            <div className={'flex justify-between items-center'}>
+            <div className={'flex justify-between items-center '}>
                 <div className={'font-bold'}>{formattedPrice} </div>
-                <div className={'flex items-center gap-3 rounded-xl'}>
+                <div className={'flex items-center gap-3 rounded-xl bg-muted'}>
                     <div>
-                        <Button variant="outline" size={'sm'} onClick={() => increaseCartQuantity(product)}>
-                            <Plus size={15} />
+                        <Button variant="ghost" size="icon" className={' hover:bg-gray-300'}
+                                onClick={() => decreaseCartQuantity(product)}>
+                            <Minus/>
                         </Button>
                     </div>
-                    <p className={'font-medium text-gray-600 items-center'}>{quantity}</p>
                     <div>
-                        <Button variant="outline" size={'sm'} onClick={() => decreaseCartQuantity(product)}>
-                            <Minus size={15} />
+                        <p className={'font-bold text-gray-600'}>{quantity}</p>
+                    </div>
+                    <div>
+                        <Button variant="ghost" className={'  hover:bg-gray-300'} size="icon"
+                                onClick={() => increaseCartQuantity(product)}>
+                            <Plus/>
                         </Button>
                     </div>
                 </div>

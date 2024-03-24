@@ -39,7 +39,7 @@ export default function useLogin() {
                 router.push('/')
             })
             .catch((error) => {
-                const errorMessage = error.error || "!!2Проверьте правильность введенных данных и повторите попытку";
+                const errorMessage = error.error || "Аккаунт не активирован, либо введен неправильный пароль";
                 toast({
                     title: "Возникла ошибка.",
                     description: errorMessage,

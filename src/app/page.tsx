@@ -10,7 +10,7 @@ import {useProductsByCategory} from "@/api/queries";
 import {useCallback, useEffect, useState} from "react";
 import CartIcon from "@/components/CartIcon";
 import Image from "next/image";
-import {ChefHat, MoveUp} from "lucide-react";
+import {ChefHat, MoveUp, Split} from "lucide-react";
 
 
 export default function Home() {
@@ -64,8 +64,11 @@ export default function Home() {
                             побаловать себя свежим шашлыком и даже хачапури.
                         </p>
 
-                        <div className={'mt-5'}>
-                            <Link href={'pagetsx'} className={buttonVariants()}> Построить маршрут</Link>
+                        <div className={'mt-5'}><Button asChild variant={'default'}>
+                            <Link target={'_blank'} href={'https://yandex.ru/maps/-/CDRQ7A1W'} className={buttonVariants()}>
+                                 Построить маршрут <Split size={14} className={'ml-2'}/></Link>
+                        </Button>
+
                         </div>
                     </div>
 

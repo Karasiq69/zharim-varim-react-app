@@ -11,12 +11,12 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import placeholder from '../../public/placeholder.webp'
+import placeholderImage from '../../public/placeholder.webp';
 
 type ProductItemProps = {
     product: Product;
 };
-
+import {Badge} from "@/components/ui/badge"
 const ProductItem: React.FC<ProductItemProps> = ({product}) => {
     const {
         title,
@@ -30,14 +30,14 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
     const quantity = getItemQuantity(product)
     const isSpecifications = attribute_values?.length > 0
 
-    const productImage = product?.product_image?.[0];
-
+const productImageSrc = product?.product_image?.[0]?.image || placeholderImage;
     return (
         <>
 
             <div className="flex flex-col h-full rounded-t-sm">
-                <Image width={260} height={195} className="rounded-t-sm" src={productImage?.image}
-                       alt={productImage?.alt_text || ''}/>
+                <Image width={360} height={195} className="rounded-t-sm" src={productImageSrc}
+                       alt={product?.product_image?.[0]?.alt_text || ''}
+                />
 
                 <div className="p-4 pb-3 space-y-2 flex-grow">
                     <h4 className="font-bold">
@@ -48,13 +48,15 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                 </div>
 
                 <div className="p-4 pt-0 mt-auto flex justify-between items-center">
-                    <span className="font-bold">{regular_price && formatPrice(regular_price)}</span>
-                    <div>
+                    <span className="font-bold">
+                        {isSpecifications && 'от '}
+                        {regular_price && formatPrice(regular_price)}</span>
+                    <div className={'bg-muted rounded-xl'}>
                         {isSpecifications ?
                             <>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <Button variant="outline" className={'bg-emerald-300'}>Выбрать</Button>
+                                        <Button variant="default">Выбрать</Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <DropdownMenuLabel>Выберите размер:</DropdownMenuLabel>
@@ -67,11 +69,11 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                                                       selectedAttribute: spec,
                                                                   })
                                                               }>
-                                                <div className={'flex justify-between gap-3'}>
-                                                    <span
-                                                        className="h-6 w-6 font-bold flex items-center">{spec.value}</span>
+                                                <div className={'flex justify-between gap-3 hover:cursor-pointer'}>
+                                                    <Badge variant="outline">{spec.value}мл</Badge>
+
                                                     <div className={'flex gap-3'}>
-                                                        <p className={'text-gray-600'}>Добавить за</p>
+
                                                         <span
                                                             className={'font-bold flex items-center'}>{formatPrice(spec.price)}</span>
                                                     </div>
@@ -85,12 +87,15 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                             :
                             <>
                                 {quantity === 0 ?
-                                    <Button onClick={() => addToCart(product)} className={'bg-emerald-300'}
+                                    <Button onClick={() => addToCart(product)} className={' '}
                                             size={'icon'}
-                                            variant="ghost"><Plus/></Button> :
+                                            variant="default">
+                                        <Plus/>
+                                    </Button> :
+
                                     <div className={'flex items-center gap-2'}>
                                         <div>
-                                            <Button variant="ghost" size="icon"
+                                            <Button variant="ghost" size="icon" className={' hover:bg-gray-300'}
                                                     onClick={() => decreaseCartQuantity(product)}>
                                                 <Minus/>
                                             </Button>
@@ -100,7 +105,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                         </div>
 
                                         <div>
-                                            <Button variant="ghost" size="icon"
+                                            <Button variant="ghost" className={'  hover:bg-gray-300'} size="icon"
                                                     onClick={() => increaseCartQuantity(product)}>
                                                 <Plus/>
                                             </Button>

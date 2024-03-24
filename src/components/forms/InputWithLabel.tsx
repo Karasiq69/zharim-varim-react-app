@@ -28,7 +28,7 @@ const InputWithLabel = ({labelId, link, type, placeholder, onChange, value, requ
 
                 {link && (
                 <div className={'text-right'}>
-                    <Button variant={'link'} size={'sm'}><Link href={link.linkUrl}>{link.linkText}</Link></Button>
+                    <Button variant={'link'} size={'sm'} asChild><Link href={link.linkUrl}>{link.linkText}</Link></Button>
                 </div>
             )}
             </div>
