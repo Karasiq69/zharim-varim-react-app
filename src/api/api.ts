@@ -45,3 +45,8 @@ export const addUsersAddress = async (data: any) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return (await  axiosInstance.post(`/users/addresses/`, data))
 }
+
+export const updateUsersAddress = async (id:number, data: any) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return (await  axiosInstance.put(`/users/addresses/${id}/`, data))
+}

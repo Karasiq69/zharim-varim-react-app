@@ -1,5 +1,5 @@
 import {useMutation} from "@tanstack/react-query";
-import {addUsersAddress, createOrder, deleteUsersAddresses, updateUser} from "@/api/api";
+import {addUsersAddress, createOrder, deleteUsersAddresses, updateUser, updateUsersAddress} from "@/api/api";
 import {queryClient} from "@/lib/QueryProvider";
 import {useToast} from "@/components/ui/use-toast";
 import {router} from "next/client";
@@ -119,6 +119,36 @@ export function useAddAddressMutation() {
             toast({
                 title: "Успешно!",
                 description: "",
+                variant: "success",
+                duration: 2000,
+            });
+
+        },
+        onError: () => {
+            toast({
+                title: "Возникла ошибка.",
+                description: "Попробуйте обновить страницу и попробуйте еще раз",
+                variant: "destructive",
+                duration: 2000,
+            })
+        },
+
+        onSettled: async (_, error) => {
+            await queryClient.invalidateQueries({queryKey: ['users-addresses']})
+        },
+
+
+    })
+}
+
+export function useUpdateAddressMutation() {
+    const {toast} = useToast()
+    return useMutation({
+        mutationFn: ({id, data}: { id: number; data: any }) => updateUsersAddress(id, data),
+        onSuccess: (data) => {
+            toast({
+                title: "Успешно!",
+                description: "Адрес изменен",
                 variant: "success",
                 duration: 2000,
             });

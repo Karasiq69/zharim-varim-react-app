@@ -14,6 +14,7 @@ import {useCreateOrderMutation} from "@/api/mutations";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import LoadingButton from "@/components/ui/loading-button";
+import DeliveryBlock from "@/app/checkout/components/DeliveryBlock";
 
 
 interface CheckoutFormProps {
@@ -21,51 +22,23 @@ interface CheckoutFormProps {
     isLoading: boolean;
 }
 
-
-const testOrder = {
-
-    "address": 2,
-    "comment": "Пожалуйста, доставьте заказ как можно скорее",
-    "order_type": "delivery",
-    "payment_method": "cash",
-    "items": [
-        {
-            "product": 1,
-            "quantity": 2,
-            "attribute_values": [
-                3
-            ]
-        },
-        {
-            "product": 2,
-            "quantity": 1
-        },
-        {
-            "product": 3,
-            "quantity": 3,
-            "attribute_values": [
-                1,
-                2
-            ]
-        }
-    ]
-}
-
-
-const CheckoutForm = ({ user, isLoading }: CheckoutFormProps) => {
-    const { cartItems, calculateTotalCost } = useShoppingCart();
+const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
+    const {cartItems, calculateTotalCost} = useShoppingCart();
     const totalCost = calculateTotalCost();
-    const { mutate, isSuccess, isPending, data } = useCreateOrderMutation();
+    const {mutate, isSuccess, isPending, data} = useCreateOrderMutation();
     const [selectedPaymentOption, setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
+    const [deliveryMethod] = useLocalStorage('deliveryMethod', 'local_pickup');
+    const [selectedAddressId] = useLocalStorage('selectedAddress', '');
+
 
     data && console.log(data.data.url, 'DATA  use create order checkout form');
 
-    const { register, handleSubmit, formState: { errors }, watch, control } = useForm({
+    const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
         defaultValues: {
             user_id: user?.id ?? '',
             name: user?.first_name ?? '',
             phone: user?.phone ?? '',
-            address: 'дефолть адрес в форме',
+            comment: '',
             // paymentMethod: selectedPaymentOption,
         }
     });
@@ -79,18 +52,16 @@ const CheckoutForm = ({ user, isLoading }: CheckoutFormProps) => {
         const orderData = {
             items: transformedItems,
             total_cost: totalCost,
-            order_type: 'delivery',
-            comment: 'test comment',
+            order_type: deliveryMethod,
+            comment: formData.comment,
             payment_method: selectedPaymentOption,
             status: "pending",
-            address: {
-                zipcode: '123312132',
-                city: 'Москва',
-                address: formData.address,
-                place: 'выфвфывфы',
-                address_name: 'фыввыфвфы'
-            }
+            address: selectedAddressId,
         };
+
+        if (deliveryMethod === 'delivery' && selectedAddressId) {
+            orderData.address = parseInt(selectedAddressId, 10);
+        }
 
         mutate(orderData);
         console.log(orderData, 'FROM checkoutForm ttsx');
@@ -126,15 +97,24 @@ const CheckoutForm = ({ user, isLoading }: CheckoutFormProps) => {
 
                                 </div>
                                 <div className="grid w-full max-w-sm items-center gap-1.5">
-                                    <Label htmlFor="address">Адрес доставки</Label>
-                                    <Textarea {...register('address', {required: 'Это поле обязательно'})}
-                                              id="address"
-                                              placeholder="Введите адрес доставки"/>
-                                    {errors.address &&
-                                        <p className={'text-destructive'}>{errors.address.message}</p>}
+                                    <Label htmlFor="comment">Пожелания</Label>
+                                    <Textarea {...register('comment', {required: false})}
+                                              id="comment"
+                                              placeholder="Комментарий к заказу"/>
+                                    {errors.comment &&
+                                        <p className={'text-destructive'}>{errors.comment.message}</p>}
                                 </div>
                             </div>
                         </div>
+                    </section>
+                    <Divider/>
+
+                    <section>
+                        <h3 className={'font-medium'}>Доставка</h3>
+                        <div className={'my-7'}>
+                            <DeliveryBlock/>
+                        </div>
+
                     </section>
                     <Divider/>
 
@@ -185,6 +165,8 @@ const CheckoutForm = ({ user, isLoading }: CheckoutFormProps) => {
 
                     </section>
                     <Divider/>
+
+                    {/*Промокод*/}
                     <section className={'my-10 space-y-2'}>
                         <h4 className={'font-bold text-gray-700'}>Есть промокод?</h4>
                         <div className="flex w-full max-w-sm items-center space-x-2">

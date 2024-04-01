@@ -57,7 +57,7 @@ const Navbar = (props: Props) => {
                         <CartIcon/>
                         {isAuthenticated ?
                             <Button className={''} variant="outline" asChild>
-                                <Link href={'my-account/'} className={'flex items-center gap-2 font-medium'}>
+                                <Link href={'/my-account/'} className={'flex items-center gap-2 font-medium'}>
                                     <User/> Профиль
                                 </Link>
                             </Button>
