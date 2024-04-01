@@ -14,6 +14,7 @@ import {ChefHat, MoveUp, Split} from "lucide-react";
 
 
 export default function Home() {
+
     const {data = [], isLoading, isSuccess} = useProductsByCategory();
 
     const sections = isSuccess
@@ -48,9 +49,10 @@ export default function Home() {
                 <Image
                     src="/herobg.webp"
                     alt="Hero Background"
-                    layout="fill"
-                    objectFit="cover"
                     quality={100}
+                    fill
+                    style={{objectFit: "cover"}}
+
                 />
                 <MaxWidthWrapper>
 
@@ -65,8 +67,9 @@ export default function Home() {
                         </p>
 
                         <div className={'mt-5'}><Button asChild variant={'default'}>
-                            <Link target={'_blank'} href={'https://yandex.ru/maps/-/CDRQ7A1W'} className={buttonVariants()}>
-                                 Построить маршрут <Split size={14} className={'ml-2'}/></Link>
+                            <Link target={'_blank'} href={'https://yandex.ru/maps/-/CDRQ7A1W'}
+                                  className={buttonVariants()}>
+                                Построить маршрут <Split size={14} className={'ml-2'}/></Link>
                         </Button>
 
                         </div>

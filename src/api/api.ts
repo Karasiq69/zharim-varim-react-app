@@ -1,8 +1,8 @@
 import {Category, MenuItem} from "@/types/types";
 import {axiosInstance} from './axiosInstance';
+import {User} from "@/redux/features/authApiSlice";
 
 export const getProducts = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.get<MenuItem[]>('v1/')).data;
 }
 
@@ -15,14 +15,33 @@ export const getProduct = async (slug: string) => {
 }
 
 export const createOrder = async (data: any) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.post('v1/add/', data))
 }
 
 export const getLastOrder = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
     return (await axiosInstance.get('v1/get-last-order/')).data
 }
 export const getOrderById = async (id: number) => {
     return (await axiosInstance.get(`v1/orders/${id}`)).data;
 };
+
+export const updateUser = async (data: User) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return (await  axiosInstance.put(`/users/me/`, data))
+}
+export const getUsersOrders = async () => {
+    return (await  axiosInstance.get(`/v1/get-users-orders/`)).data
+}
+
+export const getUsersAddresses = async () => {
+    return (await  axiosInstance.get(`/users/addresses/`)).data
+}
+
+export const deleteUsersAddresses = async (id:number) => {
+    return (await  axiosInstance.delete(`/users/addresses/${id}`))
+}
+
+export const addUsersAddress = async (data: any) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return (await  axiosInstance.post(`/users/addresses/`, data))
+}

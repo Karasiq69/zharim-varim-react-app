@@ -1,5 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
-import {getLastOrder, getOrderById, getProducts, getProductsByCategory} from "@/api/api";
+import {
+    getLastOrder,
+    getOrderById,
+    getProducts,
+    getProductsByCategory,
+    getUsersAddresses,
+    getUsersOrders
+} from "@/api/api";
 import {Category} from "@/types/types";
 
 export const useProducts = () => {
@@ -10,6 +17,8 @@ export const useProducts = () => {
 
     })
 }
+
+
 
 export const useProductsByCategory = () => {
     return useQuery<Category[]>({
@@ -31,6 +40,20 @@ export const useGetOrderById = (id: number) => {
         queryKey: ['order', id],
         queryFn: () => getOrderById(id),
         enabled: !!id,
+    });
+};
+
+export const useGetUsersOrders = () => {
+    return useQuery({
+        queryKey: ['users-orders'],
+        queryFn: () => getUsersOrders()
+    });
+};
+
+export const useGetUsersAddresses = () => {
+    return useQuery({
+        queryKey: ['users-addresses'],
+        queryFn: () => getUsersAddresses()
     });
 };
 

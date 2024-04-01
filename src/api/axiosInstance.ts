@@ -8,14 +8,14 @@ export const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use(
-    async (config: InternalAxiosRequestConfig) => {
-        return config;
-    },
-    (error: AxiosError) => {
-        return Promise.reject(error);
-    }
-);
+// axiosInstance.interceptors.request.use(
+//     async (config: InternalAxiosRequestConfig) => {
+//         return config;
+//     },
+//     (error: AxiosError) => {
+//         return Promise.reject(error);
+//     }
+// );
 
 interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {
     _retry?: boolean;

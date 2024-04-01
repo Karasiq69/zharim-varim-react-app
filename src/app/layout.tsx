@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
-
 const inter = Inter({subsets: ["latin", "cyrillic-ext", "cyrillic"]});
 import {queryClient} from '@/lib/QueryProvider'
 import {ShoppingCartProvider} from "@/app/context/ShoppingCartContext";
@@ -15,7 +14,6 @@ import Setup from '@/components/utils/Setup';
 import {Suspense} from "react";
 import Metrika from "@/components/Metrika";
 import Script from 'next/script';
-import Head from 'next/head';
 
 export const metadata: Metadata = {
     title: "Жарим Варим",

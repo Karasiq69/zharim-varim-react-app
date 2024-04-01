@@ -1,10 +1,11 @@
 import {useMutation} from "@tanstack/react-query";
-import {createOrder} from "@/api/api";
+import {addUsersAddress, createOrder, deleteUsersAddresses, updateUser} from "@/api/api";
 import {queryClient} from "@/lib/QueryProvider";
 import {useToast} from "@/components/ui/use-toast";
 import {router} from "next/client";
 import {useRouter} from "next/navigation";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
+import {User} from "@/redux/features/authApiSlice";
 
 export function useCreateOrderMutation() {
     const {toast} = useToast()
@@ -42,6 +43,98 @@ export function useCreateOrderMutation() {
 
         onSettled: async (_, error) => {
             // await queryClient.invalidateQueries({queryKey: ['orders']})
+        },
+
+
+    })
+}
+
+export function useUpdateUserMutation() {
+    const {toast} = useToast()
+    return useMutation({
+        mutationFn: (data: any) => updateUser(data),
+        onSuccess: (data) => {
+            toast({
+                title: "Успешно!",
+                description: "",
+                variant: "success",
+                duration: 2000,
+            });
+
+        },
+        onError: () => {
+            toast({
+                title: "Возникла ошибка.",
+                description: "Попробуйте обновить страницу и попробуйте еще раз",
+                variant: "destructive",
+                duration: 2000,
+            })
+        },
+
+        // onSettled: async (_, error) => {
+        //     // await queryClient.invalidateQueries({queryKey: ['orders']})
+        // },
+
+
+    })
+}
+
+
+export function useDeleteAddressMutation() {
+    const {toast} = useToast()
+    return useMutation({
+        mutationFn: (id: number) => deleteUsersAddresses(id),
+        onSuccess: (data) => {
+            toast({
+                title: "Успешно!",
+                description: "",
+                variant: "success",
+                duration: 2000,
+            });
+
+        },
+        onError: () => {
+            toast({
+                title: "Возникла ошибка.",
+                description: "Попробуйте обновить страницу и попробуйте еще раз",
+                variant: "destructive",
+                duration: 2000,
+            })
+        },
+
+        onSettled: async (_, error) => {
+            await queryClient.invalidateQueries({queryKey: ['users-addresses']})
+        },
+
+
+    })
+}
+
+
+export function useAddAddressMutation() {
+    const {toast} = useToast()
+    return useMutation({
+        mutationFn: (data: any) => addUsersAddress(data),
+        onSuccess: (data) => {
+            toast({
+                title: "Успешно!",
+                description: "",
+                variant: "success",
+                duration: 2000,
+            });
+
+        },
+        onError: () => {
+            toast({
+                title: "Возникла ошибка.",
+                description: "Попробуйте обновить страницу и попробуйте еще раз",
+                variant: "destructive",
+                duration: 2000,
+            })
+        },
+
+        onSettled: async (_, error) => {
+            await queryClient.invalidateQueries({queryKey: ['users-addresses']})
         },
 
 
