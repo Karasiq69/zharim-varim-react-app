@@ -1,11 +1,4 @@
-'use client'
 import {Separator} from "@/components/ui/separator";
-import UsersOrdersList from "@/app/my-account/components/UsersOrdersList";
-import {useState} from "react";
-import {Input} from "@/components/ui/input";
-import LoadingButton from "@/components/ui/loading-button";
-import {Plus} from "lucide-react";
-import {useGetUsersAddresses} from "@/api/queries";
 import AddressesList from "@/app/my-account/addresses/addresses-list";
 import AddressForm from "@/app/my-account/addresses/address-form";
 
@@ -14,7 +7,6 @@ const Page = (props: Props) => {
 
     return (
         <>
-
             <div className="space-y-5">
                 <div>
                     <h3 className="text-lg font-medium">Адреса</h3>
@@ -31,7 +23,7 @@ const Page = (props: Props) => {
                     <div className={'mt-20'}>
                         <h3 className="text-lg font-medium">Добавить новый адрес</h3>
                         <p className="text-sm text-muted-foreground">
-                            Введите новый адрес и нажмите "Добавить".
+                            Введите новый адрес и нажмите Добавить.
                         </p>
                     </div>
                     <Separator className={'mt-6'}/>

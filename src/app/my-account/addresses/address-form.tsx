@@ -1,7 +1,8 @@
+'use client'
 import {Input} from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import {Plus} from "lucide-react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useAddAddressMutation} from "@/api/mutations";
 
 type Props = {};
@@ -23,11 +24,6 @@ const AddressForm = (props: Props) => {
     const resetForm = () => {
         setFormData(formDefaults)
     };
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         setFormData(formDefaults);
-    //     }
-    // }, [isSuccess]);
 
 
     const handleSubmit = (e: any) => {
@@ -48,7 +44,7 @@ const AddressForm = (props: Props) => {
                        onChange={handleChange}
                        required/>
                 <div>
-                    <label htmlFor="address">
+                    <label htmlFor={'address'}>
                         <p className={'text-sm text-muted-foreground'}>Россия, Москва,</p>
                         <Input name={'address'} type="text" className={''}
                                value={formData.address}

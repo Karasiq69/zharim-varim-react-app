@@ -56,7 +56,8 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             comment: formData.comment,
             payment_method: selectedPaymentOption,
             status: "pending",
-            address: selectedAddressId,
+            address: selectedAddressId ? parseInt(selectedAddressId, 10) : undefined,
+
         };
 
         if (deliveryMethod === 'delivery' && selectedAddressId) {

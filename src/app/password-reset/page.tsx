@@ -24,10 +24,9 @@ const Page = (props: Props) => {
 
             <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
                 <PasswordResetForm/>
-                {/*<SocialButtons />*/}
 
                 <p className='mt-10 text-center text-sm text-gray-500'>
-                    Не зарегистрированы?{' '}
+                    Не зарегистрированы?
                     <Link
                         href='/auth/register/'
                         className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
