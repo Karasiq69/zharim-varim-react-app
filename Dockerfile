@@ -14,7 +14,6 @@ RUN npm ci
 
 # Копируем все файлы проекта в рабочую директорию
 COPY . .
-COPY --from=builder /app/next.config.mjs ./
 # Собираем приложение Next.js
 RUN npm run build
 
