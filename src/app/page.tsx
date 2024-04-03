@@ -3,7 +3,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Link from "next/link";
 import {Button, buttonVariants} from "@/components/ui/button";
 import Perks from "@/components/Perks";
-import MenuHome from "@/components/MenuHome";
+// import MenuHome from "@/components/MenuHome";
 import AnchorMenu from "@/components/AnchorMenu";
 import Container from "@/components/Container";
 import {useProductsByCategory} from "@/api/queries";
@@ -11,7 +11,9 @@ import {useCallback, useEffect, useState} from "react";
 import CartIcon from "@/components/CartIcon";
 import Image from "next/image";
 import {ChefHat, MoveUp, Split} from "lucide-react";
+import dynamic from "next/dynamic";
 
+const MenuHome = dynamic(()=>import('@/components/MenuHome'))
 
 export default function Home() {
 

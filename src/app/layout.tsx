@@ -14,6 +14,7 @@ import Setup from '@/components/utils/Setup';
 import {Suspense} from "react";
 import Metrika from "@/components/Metrika";
 import Script from 'next/script';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
     title: "Жарим Варим",
@@ -65,6 +66,7 @@ export default function RootLayout({
                 </Provider>
 
                 </body>
+                <SpeedInsights/>
             </ShoppingCartProvider>
         </QueryClientProvider>
         </html>
