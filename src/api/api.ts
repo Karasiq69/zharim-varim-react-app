@@ -34,19 +34,19 @@ export const getUsersOrders = async () => {
 }
 
 export const getUsersAddresses = async () => {
-    return (await  axiosInstance.get(`/users/addresses/`)).data
+    return (await  axiosInstance.get(`/user-addresses/`)).data
 }
 
 export const deleteUsersAddresses = async (id:number) => {
-    return (await  axiosInstance.delete(`/users/addresses/${id}`))
+    return (await  axiosInstance.delete(`/user-addresses/${id}`))
 }
 
 export const addUsersAddress = async (data: any) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    return (await  axiosInstance.post(`/users/addresses/`, data))
+    return (await  axiosInstance.post(`/user-addresses/`, data))
 }
 
 export const updateUsersAddress = async (id:number, data: any) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    return (await  axiosInstance.put(`/users/addresses/${id}/`, data))
+    return (await  axiosInstance.put(`/user-addresses/${id}/`, data))
 }
