@@ -31,7 +31,7 @@ export default function RootLayout({
         <html lang="ru" suppressHydrationWarning>
         <QueryClientProvider client={queryClient}>
             <ShoppingCartProvider>
-
+<SpeedInsights/>
                 <body className="relative flex flex-col min-h-svh">
                 <Script id="metrika-counter" strategy="afterInteractive">
                     {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -66,7 +66,7 @@ export default function RootLayout({
                 </Provider>
 
                 </body>
-                <SpeedInsights/>
+
             </ShoppingCartProvider>
         </QueryClientProvider>
         </html>
