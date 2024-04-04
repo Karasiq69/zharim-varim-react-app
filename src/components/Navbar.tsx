@@ -46,7 +46,6 @@ const Navbar = (props: Props) => {
                     <Image
                         alt="Logo"
                         className="rounded-full"
-                        height="70"
                         src={logoblack}
                         width="150"
                     />

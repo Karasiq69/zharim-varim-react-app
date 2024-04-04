@@ -17,6 +17,7 @@ type ProductItemProps = {
     product: Product;
 };
 import {Badge} from "@/components/ui/badge"
+
 const ProductItem: React.FC<ProductItemProps> = ({product}) => {
     const {
         title,
@@ -30,13 +31,14 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
     const quantity = getItemQuantity(product)
     const isSpecifications = attribute_values?.length > 0
 
-const productImageSrc = product?.product_image?.[0]?.image || placeholderImage;
+    const productImageSrc = product?.product_image?.[0]?.image || placeholderImage;
     return (
         <>
 
             <div className="flex flex-col h-full rounded-t-sm">
-                <Image width={360} height={195} className="rounded-t-sm" src={productImageSrc}
-                       alt={product?.product_image?.[0]?.alt_text || ''}
+                <Image
+                    width={360} height={195} className="rounded-t-sm" src={productImageSrc}
+                    alt={product?.product_image?.[0]?.alt_text || ''}
                 />
 
                 <div className="p-4 pb-3 space-y-2 flex-grow">
