@@ -6,21 +6,23 @@ import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {Label} from "@/components/ui/label";
 
-type Props = {};
-const DeliverySelection = (props: Props) => {
+type Props = {
+    selectedAddressId: string;
+    setSelectedAddressId: (value: string) => void;
+};
+const DeliverySelection = ({ selectedAddressId, setSelectedAddressId }: Props) => {
     const {data: addresses, isLoading, isSuccess} = useGetUsersAddresses();
 
-    const [selectedAddress, setSelectedAddress] = useLocalStorage('selectedAddress', '');
+    const [selectedAddress] = useLocalStorage('selectedAddress', '');
     const handleValueChange = (e: any) => {
-        setSelectedAddress(e);
-        console.log(e)
+        setSelectedAddressId(e);
     };
     return (
         <div>
             <RadioGroup
 
                 onValueChange={handleValueChange}
-                defaultValue={selectedAddress}
+                defaultValue={selectedAddressId}
                 className="gap-4">
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 w-full gap-4">
 

@@ -1,3 +1,4 @@
+'use client'
 import CheckoutUserForm from "@/components/forms/CheckoutUserForm";
 import Divider from "@/components/ui/Divider";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
@@ -15,6 +16,7 @@ import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import LoadingButton from "@/components/ui/loading-button";
 import DeliveryBlock from "@/app/checkout/components/DeliveryBlock";
+import {useEffect} from "react";
 
 
 interface CheckoutFormProps {
@@ -27,11 +29,11 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
     const totalCost = calculateTotalCost();
     const {mutate, isSuccess, isPending, data} = useCreateOrderMutation();
     const [selectedPaymentOption, setSelectedPaymentOption] = useLocalStorage('selectedPaymentOption', 'card');
-    const [deliveryMethod] = useLocalStorage('deliveryMethod', 'local_pickup');
-    const [selectedAddressId] = useLocalStorage('selectedAddress', '');
-
+    const [deliveryMethod, setDeliveryMethod] = useLocalStorage('deliveryMethod', 'local_pickup');
+    const [selectedAddressId, setSelectedAddressId] = useLocalStorage('selectedAddress', '');
 
     data && console.log(data.data.url, 'DATA  use create order checkout form');
+
 
     const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
         defaultValues: {
@@ -39,9 +41,9 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             name: user?.first_name ?? '',
             phone: user?.phone ?? '',
             comment: '',
-            // paymentMethod: selectedPaymentOption,
         }
     });
+
     const onSubmit = (formData: any) => {
         const transformedItems = cartItems.map(item => ({
             product: item.product.id,
@@ -56,16 +58,11 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             comment: formData.comment,
             payment_method: selectedPaymentOption,
             status: "pending",
-            address: selectedAddressId ? parseInt(selectedAddressId, 10) : undefined,
+            address_id: deliveryMethod  === 'delivery' && selectedAddressId ? parseInt(selectedAddressId, 10) : undefined,
 
         };
-
-        if (deliveryMethod === 'delivery' && selectedAddressId) {
-            orderData.address = parseInt(selectedAddressId, 10);
-        }
-
-        mutate(orderData);
         console.log(orderData, 'FROM checkoutForm ttsx');
+        mutate(orderData);
     };
 
     const handleValueChange = (e: any) => {
@@ -113,7 +110,11 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                     <section>
                         <h3 className={'font-medium'}>Доставка</h3>
                         <div className={'my-7'}>
-                            <DeliveryBlock/>
+                            <DeliveryBlock
+                                deliveryMethod={deliveryMethod}
+                                setDeliveryMethod={setDeliveryMethod}
+                                selectedAddressId={selectedAddressId}
+                                setSelectedAddressId={setSelectedAddressId}/>
                         </div>
 
                     </section>

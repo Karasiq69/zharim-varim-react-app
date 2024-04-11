@@ -1,6 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {formatPrice} from "@/lib/utils";
-import {Attribute, AttributeValue, Product, Specifications} from "@/types/types";
+import {AttributeValue, Product} from "@/types/types";
 import {Minus, Plus} from "lucide-react";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 import {
@@ -49,13 +49,16 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                     <p className="text-muted-foreground text-sm">{description}</p>
                 </div>
 
+
+
+
                 <div className="p-4 pt-0 mt-auto flex justify-between items-center">
                     <span className="font-bold">
                         {isSpecifications && 'от '}
                         {regular_price && formatPrice(regular_price)}</span>
                     <div className={'bg-muted rounded-xl'}>
                         {isSpecifications ?
-                            <>
+
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="default">Выбрать</Button>
@@ -85,7 +88,6 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
 
-                            </>
                             :
                             <>
                                 {quantity === 0 ?
