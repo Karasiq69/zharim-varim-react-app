@@ -7,7 +7,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import {ShoppingCart} from "lucide-react";
+import {ShoppingBag, ShoppingBasket, ShoppingCart} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {Button, buttonVariants} from "@/components/ui/button";
 import Link from "next/link";
@@ -61,14 +61,12 @@ const CartIcon = (props: Props) => {
                             <>
                                 <div className={'flex h-full flex-col items-center justify-center space-y-3'}>
                                     <div>
-                                        <Image width={'500'} height={'500'} src="/empty-cart-icon.webp"
-                                               className={'mix-blend-darken'} alt=""/>
+                                        {/*<Image width={'500'} height={'500'} src="/empty-cart-icon.webp"*/}
+                                        {/*       className={'mix-blend-darken'} alt=""/>*/}
+                                            <ShoppingBasket className={'text-emerald-600'} size={80}/>
                                     </div>
-                                    <p>В корзине пусто</p>
-                                    <Link className={buttonVariants({
-                                        variant: 'link',
-                                        size: 'sm'
-                                    })} href={'/menu'}>Перейти в меню</Link>
+                                    <p className={'font-bold'}>В корзине пусто :(</p>
+
                                 </div>
                             </>
                         )}
@@ -77,7 +75,7 @@ const CartIcon = (props: Props) => {
                     <div className={'text-sm'}>
                         <div className={'flex justify-between'}>
                             <p>Товаров в корзине: <span className={'font-medium'}>{cartQuantity}</span></p>
-                            <p>{formatPrice(300)}</p>
+                            <p>{formatPrice(totalCost)}</p>
                         </div>
                         <div className={'flex justify-between'}>
                             <p>Доставка</p>

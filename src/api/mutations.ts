@@ -6,11 +6,13 @@ import {router} from "next/client";
 import {useRouter} from "next/navigation";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 import {User} from "@/redux/features/authApiSlice";
+import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 
 export function useCreateOrderMutation() {
     const {toast} = useToast()
     const router = useRouter();
     const [, setLatestOrder] = useLocalStorage('latest_order', '');
+    const {clearCart} = useShoppingCart();
 
 
     return useMutation({
@@ -18,9 +20,11 @@ export function useCreateOrderMutation() {
         onSuccess: (data) => {
             const yookassaURL = data.data.url
             const order_id = data.data.order_id
+            console.log(yookassaURL, order_id, '================')
             if (yookassaURL && order_id) {
                 setLatestOrder(order_id);
                 window.location.href = yookassaURL
+                clearCart();
             } else {
                 toast({
                     title: "Успешно!",
@@ -28,8 +32,8 @@ export function useCreateOrderMutation() {
                     variant: "success",
                     duration: 2000,
                 });
-                // Перенаправление на страницу благодарности в той же вкладке
                 router.push('/checkout/thank-you-page');
+                clearCart();
             }
         },
         onError: () => {

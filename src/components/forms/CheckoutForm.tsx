@@ -32,8 +32,6 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
     const [deliveryMethod, setDeliveryMethod] = useLocalStorage('deliveryMethod', 'local_pickup');
     const [selectedAddressId, setSelectedAddressId] = useLocalStorage('selectedAddress', '');
 
-    data && console.log(data.data.url, 'DATA  use create order checkout form');
-
 
     const {register, handleSubmit, formState: {errors}, watch, control} = useForm({
         defaultValues: {
@@ -59,9 +57,7 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
             payment_method: selectedPaymentOption,
             status: "pending",
             address_id: deliveryMethod  === 'delivery' && selectedAddressId ? parseInt(selectedAddressId, 10) : undefined,
-
         };
-        console.log(orderData, 'FROM checkoutForm ttsx');
         mutate(orderData);
     };
 
