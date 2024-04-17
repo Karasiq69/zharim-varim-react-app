@@ -2,6 +2,8 @@ import RegisterForm from "@/components/forms/RegisterForm";
 
 type Props = {};
 import type {Metadata} from "next";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 
 export const metadata = {
     title: 'Регистрация',
@@ -26,10 +28,12 @@ const Register = (props: Props) => {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Уже есть профиль?{' '}
-                        <a href={'login'}
-                            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <Button asChild variant={'link'}>
+                            <Link href={'login'}
+                            className="font-semibold leading-6 px-0">
                             Войти
-                        </a>
+                        </Link>
+                        </Button>
                     </p>
                 </div>
             </div>

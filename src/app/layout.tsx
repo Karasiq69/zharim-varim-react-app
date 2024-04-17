@@ -26,6 +26,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru" suppressHydrationWarning>
+
         <QueryClientProvider client={queryClient}>
             <ShoppingCartProvider>
                 <body className="relative flex flex-col min-h-svh">

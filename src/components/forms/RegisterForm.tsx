@@ -26,14 +26,6 @@ const RegisterForm = (props: Props) => {
             placeholder: 'Имя',
         },
         {
-            labelText: 'Фамилия',
-            labelId: 'last_name',
-            type: 'text',
-            value: last_name,
-            required: false,
-            placeholder: 'Фамилия',
-        },
-        {
             labelText: 'Email',
             labelId: 'email',
             type: 'email',

@@ -3,6 +3,7 @@ import Link from 'next/link';
 // import { SocialButtons } from '@/components/common';
 import type { Metadata } from 'next';
 import {LoginForm} from "@/components/forms";
+import {Button} from "@/components/ui/button";
 
 export const metadata: Metadata = {
 	title: 'Логин',
@@ -24,12 +25,13 @@ export default function Page() {
 
 				<p className='mt-10 text-center text-sm text-gray-500'>
 					Не зарегистрированы?{' '}
-					<Link
-						href={'/auth/register/'}
-						className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
-					>
-						Зарегистрироваться
-					</Link>
+					<Button asChild variant={'link'}>
+                            <Link href={'/auth/register/'}
+                            className="font-semibold leading-6 px-0">
+                            Зарегистрироваться
+                        </Link>
+                        </Button>
+
 				</p>
 			</div>
 		</div>
