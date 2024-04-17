@@ -2,7 +2,10 @@
 FROM node:20.11.0
 # Устанавливаем переменные окружения
 ARG NEXT_PUBLIC_HOST
+ARG NEXT_PUBLIC_DELIVERY_ON
 ENV NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST
+ENV NEXT_PUBLIC_DELIVERY_ON=$NEXT_PUBLIC_DELIVERY_ON
+
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
