@@ -22,7 +22,7 @@ export default function Home() {
                     alt="Hero Background"
                     quality={90}
                     fill
-                    style={{objectFit: "cover", backgroundColor: '#000', opacity: '99%', backgroundPosition: 'bottom'}}
+                    style={{objectFit: "cover", backgroundColor: '#fff', backgroundPosition: 'top'}}
 
                 />
                 <div className="absolute inset-0 bg-black opacity-40"></div>

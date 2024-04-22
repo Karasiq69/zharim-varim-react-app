@@ -12,10 +12,13 @@ import Provider from '@/redux/provider'
 import {Toaster} from "@/components/ui/toaster"
 import Footer from "@/components/Footer";
 import Setup from '@/components/utils/Setup';
+import Script from 'next/script';
+import {Suspense} from "react";
+import {Metrika} from "@/components/Metrika";
 
 export const metadata: Metadata = {
-    title: "Жарим Варим",
-    description: "Мы варим кофе и жарим мясо",
+    title: "Варим кофе & Жарим мясо",
+    description: "Уютное кафе в Москве, где можно вкусно поесть и выпить кофе. ",
 
 };
 
@@ -40,6 +43,10 @@ export default function RootLayout({
                         <ReactQueryDevtools initialIsOpen={false}/>
                         <Toaster/>
                     </main>
+
+                    <Suspense>
+                        <Metrika/>
+                    </Suspense>
 
                     <Footer/>
                 </Provider>
