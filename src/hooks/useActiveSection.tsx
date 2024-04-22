@@ -11,7 +11,7 @@ export const useActiveSection = (sectionIds: string[]): string => {
                     setActiveSection(entry.target.id);
                 }
             });
-        }, {threshold: 0.4});
+        }, {threshold: 0.6});
 
         sectionIds.forEach((id) => {
             const el = document.getElementById(id);

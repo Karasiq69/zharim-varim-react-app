@@ -25,16 +25,16 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ru" suppressHydrationWarning>
+        <html lang="ru" suppressHydrationWarning className={''}>
 
         <QueryClientProvider client={queryClient}>
             <ShoppingCartProvider>
-                <body className="relative flex flex-col min-h-svh">
+                <body className="relative flex flex-col min-h-svh pl-[calc(100vw - 100%)]">
 
                 <Provider>
                     <Setup/>
                     <link rel="icon" href="/favicon100.png" type="image/x-icon" sizes="16x16"/>
-                    <main className="relative flex flex-col flex-grow">
+                    <main className="relative flex flex-col flex-grow ">
                         <Navbar/>
                         <div className="flex-grow">{children}</div>
                         <ReactQueryDevtools initialIsOpen={false}/>

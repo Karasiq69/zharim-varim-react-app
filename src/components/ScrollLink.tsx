@@ -23,7 +23,7 @@ const ScrollLink: React.FC<ScrollLinkProps> = ({children, to, style,  }) => {
     };
 
     return (
-        <Button   onClick={handleScroll} variant='ghost' style={style}>
+        <Button   onClick={handleScroll} variant='ghost' className={'hover:bg-gray-200 '} style={style}>
             {children}
         </Button>
     );

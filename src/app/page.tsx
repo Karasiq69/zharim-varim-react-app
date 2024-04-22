@@ -8,7 +8,6 @@ import StickyMenuNav from "@/components/StickyMenuNav";
 import HeroPopoverButtons from "@/components/HeroPopoverButtons";
 
 
-
 const MenuHome = dynamic(() => import('@/components/MenuHome'))
 
 export default function Home() {
@@ -19,17 +18,18 @@ export default function Home() {
         <>
             <section id="hero" className="relative bg-cover bg-center bg-no-repeat">
                 <Image
-                    src="/herobg.webp"
+                    src="/herobg_v2.jpg"
                     alt="Hero Background"
-                    quality={70}
+                    quality={90}
                     fill
-                    style={{objectFit: "cover"}}
+                    style={{objectFit: "cover", backgroundColor: '#000', opacity: '99%', backgroundPosition: 'bottom'}}
 
                 />
+                <div className="absolute inset-0 bg-black opacity-40"></div>
                 <MaxWidthWrapper>
 
                     <div className={'py-40 flex flex-col text-white'}>
-                        <h1 className={' '}>Мы варим кофе <br/>
+                        <h1 className={''}>Мы варим кофе <br/>
                             и жарим мясо.</h1>
 
                         <p className={'mt-5 max-w-xl  '}>
@@ -44,7 +44,10 @@ export default function Home() {
                 </MaxWidthWrapper>
             </section>
 
-            <StickyMenuNav data={data}/>
+
+            <StickyMenuNav data={data} isLoading={isLoading} isSuccess={isSuccess}/>
+
+
             <section className={'py-10 bg-gray-200'}>
                 <MaxWidthWrapper>
                     <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>

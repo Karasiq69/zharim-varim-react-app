@@ -4,6 +4,8 @@ import ProductItem from "@/components/ProductItem";
 import SkeletonCard from "@/components/SkeletonCard";
 import {Skeleton} from "@/components/ui/skeleton";
 import {Category} from '@/types/types'
+import Divider from "@/components/ui/Divider";
+import {Separator} from "@/components/ui/separator";
 
 
 const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: boolean, isSuccess: boolean }) => {
@@ -28,9 +30,10 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                 <>
                     {isSuccess && data?.map((category) => (
                         <div id={category?.slug} key={category?.id}>
-                            <h3 className={'my-10'}>{category.name}</h3>
+
+                            <h3 className={'mb-10   font-bold'}>{category.name}</h3>
                             <div
-                                className={'mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'}>
+                                className={' mb-20 mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'}>
                                 {category?.products?.map((product) => (
                                     <div key={product?.id}
                                          className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
