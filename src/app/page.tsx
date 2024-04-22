@@ -18,14 +18,14 @@ export default function Home() {
         <>
             <section id="hero" className="relative bg-cover bg-center bg-no-repeat">
                 <Image
-                    src="/herobg_v2.jpg"
+                    src="/herobg_v3.webp"
                     alt="Hero Background"
-                    quality={90}
+                    quality={100}
                     fill
-                    style={{objectFit: "cover", backgroundColor: '#fff', backgroundPosition: 'top'}}
+                    style={{objectFit: "cover", backgroundColor: '#fff', backgroundPosition: ''}}
 
                 />
-                <div className="absolute inset-0 bg-black opacity-40"></div>
+                <div className="absolute inset-0"></div>
                 <MaxWidthWrapper>
 
                     <div className={'py-40 flex flex-col text-white'}>
