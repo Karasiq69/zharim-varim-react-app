@@ -38,9 +38,6 @@ const nextConfig = {
             },
         ],
     },
-    // images: {
-    //     domains: ['localhost', 'zharim-cafe.ru', 'api.zharim-cafe.ru']
-    // },
 };
 
 export default nextConfig;

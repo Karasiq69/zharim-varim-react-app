@@ -90,6 +90,13 @@ const HeroPopoverButtons = (props: Props) => {
                             <p className={'text-md font-bold'}><a href="tel:+7 (964) 599-22-33">+7 (964) 599-22-33</a>
                             </p>
                         </div>
+                         <Separator/>
+                        <div>
+                            <span className={'text-xs text-muted-foreground'}>Исполнитель (продавец):
+                                ИП Маринин Артем Сергеевич, 101000, 101000, Москва,
+                                Бескудниковский б-р, 8к3, ИНН 771376579641, рег. номер 322774600181922</span>
+
+                        </div>
                     </div>
                 </PopoverContent>
 

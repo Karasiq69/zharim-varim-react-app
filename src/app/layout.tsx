@@ -1,18 +1,20 @@
 import type {Metadata} from "next";
-import {Inter} from "next/font/google";
+import {
+    Roboto
+} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
-const inter = Inter({subsets: ["latin", "cyrillic-ext", "cyrillic"]});
+// const inter = Inter({subsets: ["latin", "cyrillic-ext", "cyrillic"]});
+const mont = Roboto({subsets: ["latin", "cyrillic-ext", "cyrillic"], weight:[ "300","400", "500", "700"]});
 import {queryClient} from '@/lib/QueryProvider'
 import {ShoppingCartProvider} from "@/app/context/ShoppingCartContext";
 import Provider from '@/redux/provider'
 import {Toaster} from "@/components/ui/toaster"
 import Footer from "@/components/Footer";
 import Setup from '@/components/utils/Setup';
-import Script from 'next/script';
 import {Suspense} from "react";
 import {Metrika} from "@/components/Metrika";
 
@@ -28,7 +30,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ru" suppressHydrationWarning className={''}>
+        <html lang="ru" suppressHydrationWarning className={mont.className}>
 
         <QueryClientProvider client={queryClient}>
             <ShoppingCartProvider>
