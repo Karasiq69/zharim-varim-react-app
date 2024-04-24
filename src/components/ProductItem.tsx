@@ -37,7 +37,8 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
 
             <div className="flex flex-col h-full rounded-t-sm">
                 <Image
-                    width={360} height={195} className="rounded-t-sm" src={productImageSrc}
+
+                    width={360} height={195} className="rounded-t-sm w-auto h-auto" src={productImageSrc}
                     alt={product?.product_image?.[0]?.alt_text || ''}
                 />
 
@@ -60,7 +61,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                         {isSpecifications ?
 
                                 <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
+                                    <DropdownMenuTrigger asChild key={product.id}>
                                         <Button variant="default">Выбрать</Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>

@@ -1,21 +1,15 @@
-'use client'
+
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Perks from "@/components/Perks";
-import {useProductsByCategory} from "@/api/queries";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import StickyMenuNav from "@/components/StickyMenuNav";
 import HeroPopoverButtons from "@/components/HeroPopoverButtons";
-import placeholderImage from "../../public/placeholder.webp";
 import homepic1 from '../../public/images/homepic1.jpg'
 import homepic2 from '../../public/images/homepic2.jpg'
+import Products from "@/app/Products";
 
-const MenuHome = dynamic(() => import('@/components/MenuHome'))
+
 
 export default function Home() {
-    const {data = [], isLoading, isSuccess} = useProductsByCategory();
-
-
     return (
         <>
             <section id="hero" className="relative bg-cover bg-center bg-no-repeat">
@@ -45,18 +39,7 @@ export default function Home() {
 
                 </MaxWidthWrapper>
             </section>
-
-
-            <StickyMenuNav data={data} isLoading={isLoading} isSuccess={isSuccess}/>
-
-
-            <section className={'py-10 bg-gray-200'}>
-                <MaxWidthWrapper>
-                    <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>
-                </MaxWidthWrapper>
-            </section>
-
-
+            <Products/>
             <section className={'py-20 my-10'}>
                 <MaxWidthWrapper>
                     <Perks/>
