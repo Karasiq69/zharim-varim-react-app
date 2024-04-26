@@ -22,7 +22,7 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                     <div className={'my-10'}>
                         {isLoading && <Skeleton className="h-7 w-[60px]"></Skeleton>}
                     </div>
-                    <div className={' grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 auto-rows-fr'}>
+                    <div className={'grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 auto-rows-fr'}>
                         {skeletons}
                     </div>
                 </>
@@ -31,12 +31,12 @@ const MenuHome = ({data, isLoading, isSuccess}: { data: Category[], isLoading: b
                     {isSuccess && data?.map((category) => (
                         <div id={category?.slug} key={category?.id}>
 
-                            <h3 className={'mb-10   font-bold'}>{category.name}</h3>
+                            <h3 className={'mb-10 font-bold'}>{category.name}</h3>
                             <div
-                                className={' mb-20 mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4'}>
+                                className={'mb-20 mx-auto grid items-stretch lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2 md:gap-4 '}>
                                 {category?.products?.map((product) => (
                                     <div key={product?.id}
-                                         className={'flex flex-col bg-white rounded-sm drop-shadow-md hover:drop-shadow-xl'}>
+                                         className={'flex flex-col bg-white rounded-2xl  p-2 md:p-4 group transition-all duration-300 hover:drop-shadow-xl'}>
                                         <ProductItem
                                             key={product?.id}
                                             product={product}

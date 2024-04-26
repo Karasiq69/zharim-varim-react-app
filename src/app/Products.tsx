@@ -13,7 +13,7 @@ const Products = (props: Props) => {
         <>
             <StickyMenuNav data={data} isLoading={isLoading} isSuccess={isSuccess}/>
 
-            <section className={'py-10 bg-gray-200'}>
+            <section className={'py-10 bg-stone-100'}>
                 <MaxWidthWrapper>
                     <MenuHome data={data} isLoading={isLoading} isSuccess={isSuccess}/>
                 </MaxWidthWrapper>
