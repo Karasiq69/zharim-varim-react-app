@@ -6,8 +6,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
-
-const mont = Roboto({subsets: ["latin", "cyrillic-ext", "cyrillic"], weight: ["300", "400", "500", "700"]});
 import {queryClient} from '@/lib/QueryProvider'
 import {ShoppingCartProvider} from "@/app/context/ShoppingCartContext";
 import Provider from '@/redux/provider'
@@ -16,6 +14,8 @@ import Footer from "@/components/Footer";
 import Setup from '@/components/utils/Setup';
 import {Suspense} from "react";
 import {Metrika} from "@/components/Metrika";
+
+const mont = Roboto({subsets: ["latin", "cyrillic-ext", "cyrillic"], weight: ["300", "400", "500", "700"]});
 
 export const metadata: Metadata = {
     title: "Варим кофе & Жарим мясо",

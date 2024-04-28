@@ -65,7 +65,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                     <Button className={'w-full rounded-sm hover:bg-primary hover:text-white'}
                                             size={'default'}
                                             variant="ghost">
-                                        <Plus size={18} className={'mr-2'}/> В корзину
+                                        <Plus size={15} className={'mr-2'}/> В корзину
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
@@ -100,14 +100,14 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                             className={'w-full rounded-sm hover:bg-primary hover:text-white'}
                                             size={'default'}
                                             variant="ghost">
-                                        <Plus size={18} className={'mr-2'}/> В корзину
+                                        <Plus size={15} className={'mr-2'}/> В корзину
                                     </Button> :
 
                                     <div className={'flex items-center gap-2'}>
                                         <>
                                             <Button variant="ghost"  className={' hover:bg-gray-300 w-full '}
                                                     onClick={() => decreaseCartQuantity(product)}>
-                                                <Minus/>
+                                                <Minus size={16}/>
                                             </Button>
                                         </>
                                         <>
@@ -115,9 +115,9 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                         </>
 
                                         <>
-                                            <Button variant="ghost"  className={'  hover:bg-gray-300 w-full'}
+                                            <Button variant="ghost"  className={'hover:bg-gray-300 w-full'}
                                                     onClick={() => increaseCartQuantity(product)}>
-                                                <Plus/>
+                                                <Plus size={16}/>
                                             </Button>
                                         </>
                                     </div>

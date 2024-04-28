@@ -1,18 +1,8 @@
 'use client'
-import {CategoriesProps} from "@/types/types";
-import {Button} from "@/components/ui/button";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import ScrollLink from "@/components/ScrollLink";
-import {useState} from "react";
 import {useActiveSection} from '@/hooks/useActiveSection'
-
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
+import {Button} from "@/components/ui/button";
+import React from "react";
 
 interface Section {
     slug: string;
@@ -32,13 +22,19 @@ const AnchorMenu: React.FC<AnchorMenuProps> = ({isLoading, sections}) => {
         <div className="max-w-max">
             <div className="flex">
                 {!isLoading && sections?.map(({slug, name}) => (
-                    <ScrollLink
-                        to={`#${slug}`}
-                        key={slug}
-                        style={{color: activeSection === slug ? 'green  ' : 'black'}}
-                    >
-                        {name}
-                    </ScrollLink>
+                    <Button key={slug} asChild variant='ghost' className={'hover:bg-gray-200 '}>
+                        <ScrollLink
+                            to={`#${slug}`}
+                            key={slug}
+                            style={{color: activeSection === slug ? 'green  ' : 'black'}}
+                        >
+
+
+                            ыуч{name}ss!
+
+
+                        </ScrollLink>
+                    </Button>
                 ))}
             </div>
         </div>

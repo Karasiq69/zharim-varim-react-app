@@ -2,13 +2,13 @@
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {User} from "lucide-react";
-import CartIcon from "@/components/CartIcon";
 import {useAppSelector} from "@/redux/hooks";
 import {useRetrieveUserQuery} from "@/redux/features/authApiSlice";
 import Image from "next/image";
 
 import logoblack from '../../public/logoblack.svg'
 import ButtonSkeleton from "@/components/ButtonSkeleton";
+import CartSheet from "@/components/CartSheet";
 
 type Props = {};
 
@@ -32,7 +32,7 @@ const Navbar = (props: Props) => {
                     />
                 </Link>
                 <div className={'flex gap-5 items-center'}>
-                    <CartIcon/>
+                    <CartSheet/>
                     {isLoading ? (
                         <ButtonSkeleton/>
                     ) : (

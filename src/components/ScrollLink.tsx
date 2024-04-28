@@ -1,6 +1,5 @@
 'use client'
-import Link, {LinkProps} from "next/link";
-import React, {PropsWithChildren} from "react";
+import React from "react";
 import {Button} from "@/components/ui/button";
 
 interface ScrollLinkProps {

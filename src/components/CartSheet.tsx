@@ -1,46 +1,39 @@
-'use client'
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger
-} from "@/components/ui/sheet";
-import {ShoppingBasket, ShoppingCart} from "lucide-react";
-import {Separator} from "@/components/ui/separator";
-import {buttonVariants} from "@/components/ui/button";
-import Link from "next/link";
-import {cn, formatPrice} from "@/lib/utils";
-import {useShoppingCart} from "@/app/context/ShoppingCartContext";
+import {Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import CartTrigger from "@/components/CartTrigger";
+import {Button, buttonVariants} from "@/components/ui/button";
 import CartItem from "@/components/CartItem";
-import {useRetrieveUserQuery} from "@/redux/features/authApiSlice";
+import {ShoppingBasket} from "lucide-react";
+import {cn, formatPrice} from "@/lib/utils";
+import {Separator} from "@/components/ui/separator";
+import Link from "next/link";
+import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 
 type Props = {};
-const CartIcon = (props: Props) => {
+const CartSheet = (props: Props) => {
     const {
         cartQuantity,
         cartItems,
         calculateTotalCost,
+        clearCart,
     } = useShoppingCart();
 
     const totalCost = calculateTotalCost();
-    const {isLoading} = useRetrieveUserQuery();
-
-
     return (
         <Sheet>
             <SheetTrigger className={'group -m-2 flex items-center p-5'}>
-                <ShoppingCart
-                    aria-hidden="true"
-                    className={'h-6 w-6 flex-shrink-0 text-gray-900 group-hover:text-gray-500'}/>
-                <span className={'ml-1 text-sm font-bold text-gray-600 group-hover:text-gray-500'}>{!isLoading && cartQuantity}</span>
+                <CartTrigger/>
             </SheetTrigger>
             <SheetContent className={'bg-muted overflow-auto p-0 h-svh'}>
                 <div className="flex flex-col h-full">
                     <SheetHeader>
                         <SheetTitle className={'p-5'}>
-                            <p>Корзина</p>
+                            <div className={'flex items-center'}>
+                                <p>Корзина</p>
+                                <Button variant={'link'}
+                                        className={'items-center'}
+                                        onClick={() => clearCart()}
+                                >Очистить</Button>
+                            </div>
                         </SheetTitle>
                     </SheetHeader>
                     <div className={'flex-grow overflow-y-auto py-3'}>
@@ -105,4 +98,4 @@ const CartIcon = (props: Props) => {
         </Sheet>
     );
 };
-export default CartIcon;
+export default CartSheet;
