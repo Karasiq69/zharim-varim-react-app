@@ -45,7 +45,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
                         <Image
                             height={80}
                             width={80}
-                            className={'rounded-md'}
+                            className={'rounded-md w-auto h-auto'}
                             src={productImageSrc}
                             alt={product_image[0]?.alt_text || ''}
                         />
