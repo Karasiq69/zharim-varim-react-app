@@ -36,7 +36,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
 
             <div className="flex flex-col h-full  ">
                 <Image
-                    width={360} height={195}
+                    width={360} height={200}
                     className="rounded-sm w-auto h-auto transition-all duration-300 group-hover:-translate-y-1"
                     src={productImageSrc}
                     alt={product?.product_image?.[0]?.alt_text || ''}
@@ -105,7 +105,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
 
                                     <div className={'flex items-center gap-2'}>
                                         <>
-                                            <Button variant="ghost"  className={' hover:bg-gray-300 w-full '}
+                                            <Button variant="ghost" className={' hover:bg-gray-300 w-full '}
                                                     onClick={() => decreaseCartQuantity(product)}>
                                                 <Minus size={16}/>
                                             </Button>
@@ -115,7 +115,7 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                                         </>
 
                                         <>
-                                            <Button variant="ghost"  className={'hover:bg-gray-300 w-full'}
+                                            <Button variant="ghost" className={'hover:bg-gray-300 w-full'}
                                                     onClick={() => increaseCartQuantity(product)}>
                                                 <Plus size={16}/>
                                             </Button>
