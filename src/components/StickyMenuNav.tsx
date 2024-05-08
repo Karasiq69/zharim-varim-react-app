@@ -61,6 +61,7 @@ const StickyMenuNav = (props: Props) => {
         >
             <MaxWidthWrapper>
                 <div className="flex items-center justify-between">
+                    {isSticky && <Image alt={''} src={'/images/logovzh.svg'} width={30} height={30}/>}
                     <div className="flex items-center">
                         <div
                             className={cn(
@@ -76,7 +77,7 @@ const StickyMenuNav = (props: Props) => {
                                     className="flex  overflow-x-auto whitespace-nowrap scroll-smooth  gap-2"
                                     ref={navRef}
                                 >
-                                    {isSticky && <Image alt={''} src={'/images/logovzh.svg'} width={30} height={30}/>}
+
 
                                     {!props.isLoading &&
                                         sections?.map(({slug, name}) => (

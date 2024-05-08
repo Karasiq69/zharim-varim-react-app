@@ -24,8 +24,8 @@ export default function Home() {
                 <div className="absolute inset-0"></div>
                 <MaxWidthWrapper>
 
-                    <div className={'py-40 flex flex-col text-white'}>
-                        <h1 className={''}>Мы варим кофе <br/>
+                    <div className={'py-20 md:py-40 flex flex-col text-white'}>
+                        <h1 className={'text-3xl md:text-5xl'}>Мы варим кофе <br/>
                             и жарим мясо.</h1>
 
                         <p className={'mt-5 max-w-xl  '}>
