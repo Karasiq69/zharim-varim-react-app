@@ -34,7 +34,9 @@ export default function useRegister() {
                 toast({
                     title: "Успешно!",
                     description: "Подтвердите свой Email на почте, мы только что отправили письмо",
-                    variant: "default",
+                    variant: "success",
+                    duration: 3000,
+
                 })
                 router.push('/auth/login')
             })
@@ -43,6 +45,7 @@ export default function useRegister() {
                     title: "Возникла ошибка.",
                     description: "Проверьте правильность введенных данных и повторите попытку позднее",
                     variant: "destructive",
+                    duration: 3000,
                 })
             })
     }
