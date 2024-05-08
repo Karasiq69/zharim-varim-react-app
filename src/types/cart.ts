@@ -1,16 +1,15 @@
-import {Attribute, AttributeValue, CartItem, Product, Specifications} from "@/types/types";
+import { AttributeValue, CartItem, OptionValue, Product } from "@/types/types";
+
 
 export type ShoppingCartContext = {
-    getItemQuantity: (product: Product) => number;
-    addToCart: (product: Product, selectedAttribute?: AttributeValue) => void;
-    increaseCartQuantity: (product: Product) => void;
-    decreaseCartQuantity: (product: Product) => void;
-    removeFromCart: (product: Product) => void;
-    calculateTotalCost: () => number
+    getItemQuantity: (id:any) => number;
+    addToCart: (product: Product, selectedAttribute?: AttributeValue, selectedOptions?: OptionValue[]) => void;
+    increaseCartQuantity: (cartItemId: string) => void;
+    decreaseCartQuantity: (cartItemId: string) => void;
+    removeFromCart: (cartItemId: string) => void;
+    calculateTotalCost: () => number;
     cartItems: CartItem[];
-    cartQuantity: number
-    getProductPrice: (product: Product) => number
+    cartQuantity: number;
+    getProductPrice: (id: string) => number;
     clearCart: () => void;
 };
-
-

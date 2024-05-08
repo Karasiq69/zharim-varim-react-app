@@ -1,3 +1,5 @@
+
+
 export interface MenuItem {
     id: number;
     title?: string;
@@ -6,7 +8,7 @@ export interface MenuItem {
     discount_price?: string | null;
     product_image?: ProductImage[];
     slug: string;
-    selectedSpecification?: { // Добавляем выбранные спецификации
+    selectedSpecification?: {
         specification_name: string;
         value: string;
         price: string;
@@ -18,35 +20,10 @@ export type CategoriesProps = {
     category: string
 }
 
-// export interface ProductImage {
-//     image: string;
-//     alt_text?: string | null;
-// }
-
-// export interface Product {
-//     id: number;
-//     title: string;
-//     description?: string;
-//     regular_price?: string;
-//     discount_price?: string | null;
-//     slug?: string;
-//     weight?: number
-//     selectedSpecification?: { // Добавляем выбранные спецификации
-//         specification_name: string;
-//         value: string;
-//         price: string;
-//     };
-//     specifications?: Specifications[]
-//     product_image?: ProductImage[];
-//     // category: number; // Если вам не нужен ID категории, можно опустить
-//     quantity?: number
-// }
-
 export type Specifications = {
     specification_name: string
     value: string
     price: string | number
-
 }
 
 export type ProductImage = {
@@ -67,6 +44,20 @@ export type AttributeValue = {
     price: string;
 };
 
+export type OptionType = {
+    id: number;
+    name: string;
+};
+
+export type OptionValue = {
+    id: number;
+    option_value: {
+        option_type: OptionType;
+        label: string;
+        price: string;
+    };
+};
+
 export type Product = {
     id: number;
     title: string;
@@ -79,15 +70,16 @@ export type Product = {
     weight: string | null;
     attribute_values: AttributeValue[];
     selectedAttribute?: AttributeValue;
+    selectedOptions?: OptionValue[];
+    options: OptionValue[];
 };
 
 export type CartItem = {
+    id: string;
     product: Product;
     quantity: number;
-};
-
-export type ProductAttributes = {
-    [key: string]: string;
+    selectedAttribute?: AttributeValue;
+    selectedOptions?: OptionValue[];
 };
 
 export type Category = {
@@ -96,4 +88,3 @@ export type Category = {
     slug: string;
     products: Product[];
 };
-

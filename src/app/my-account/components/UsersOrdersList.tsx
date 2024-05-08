@@ -1,11 +1,8 @@
-import {ReactNode} from "react";
-import OrderItem from "@/app/my-account/orders/order-item";
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,

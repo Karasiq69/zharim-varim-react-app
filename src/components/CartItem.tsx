@@ -1,20 +1,19 @@
 'use client'
 import {formatPrice} from "@/lib/utils";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
-import {Product} from "@/types/types";
+import {CartItem as CartItemType} from "@/types/types";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {Minus, Plus} from "lucide-react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge"
+import {Badge} from "@/components/ui/badge"
 import placeholderImage from "../../public/placeholder.webp";
 
 type CartItemProps = {
-    product: Product;
-    quantity: number;
+    item: CartItemType;
 };
 
-const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
+const CartItem: React.FC<CartItemProps> = ({item}) => {
     const {
         removeFromCart,
         increaseCartQuantity,
@@ -24,28 +23,32 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
 
     const {
         id,
+        product,
+        quantity,
+        selectedAttribute,
+        selectedOptions,
+    } = item;
+
+    const {
         title,
         description,
         product_image,
-        selectedAttribute,
-        attribute_values,
         weight,
     } = product;
+    const productImageSrc = product?.product_image?.[0]?.image || placeholderImage
 
-    const price = getProductPrice(product);
+
+    const price = getProductPrice(id);
     const totalPrice = price * quantity;
     const formattedPrice = formatPrice(totalPrice);
-    const productImageSrc = product?.product_image?.[0]?.image || placeholderImage;
-
     return (
         <div>
             <div className={'flex gap-3'}>
                 <div className={'flex-shrink-0'}>
                     {product_image && (
                         <Image
-                            height={80}
-                            width={80}
-                            className={'rounded-md w-auto h-auto'}
+                            width={500} height={360}
+                            className={'rounded-md w-auto h-20'}
                             src={productImageSrc}
                             alt={product_image[0]?.alt_text || ''}
                         />
@@ -55,17 +58,23 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
                     <p className={'font-bold'}>{title} <span
                         className={'text-muted-foreground font-light text-sm'}>{weight && `${weight}г`}</span></p>
                     {selectedAttribute && <span
-                        className={'text-xs text-muted-foreground'}><Badge variant="outline">{selectedAttribute?.value} мл</Badge></span>}
+                        className={'text-xs text-muted-foreground'}><Badge
+                        variant="outline">{selectedAttribute?.value} мл</Badge></span>}
+                    {selectedOptions && selectedOptions.map((option) => (
+                        <span key={option.id} className="text-xs text-muted-foreground">
+                            <Badge variant="outline">{option.option_value.label}</Badge>
+                        </span>
+                    ))}
                     <p className={'text-muted-foreground text-sm'}>{description}</p>
                 </div>
             </div>
-            <Separator className={'my-3'} />
+            <Separator className={'my-3'}/>
             <div className={'flex justify-between items-center '}>
                 <div className={'font-bold'}>{formattedPrice} </div>
                 <div className={'flex items-center gap-3 rounded-xl bg-muted'}>
                     <div>
                         <Button variant="ghost" size="icon" className={' hover:bg-gray-300'}
-                                onClick={() => decreaseCartQuantity(product)}>
+                                onClick={() => decreaseCartQuantity(id)}>
                             <Minus/>
                         </Button>
                     </div>
@@ -74,7 +83,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, quantity }) => {
                     </div>
                     <div>
                         <Button variant="ghost" className={'  hover:bg-gray-300'} size="icon"
-                                onClick={() => increaseCartQuantity(product)}>
+                                onClick={() => increaseCartQuantity(id)}>
                             <Plus/>
                         </Button>
                     </div>

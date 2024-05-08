@@ -76,6 +76,10 @@ const config = {
                 'height': 'height',
                 'spacing': 'margin, padding',
             },
+            dropShadow: {
+                '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
+                'mid': '0 2px 8px   rgba(99, 99, 99, 0.2) ',
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],

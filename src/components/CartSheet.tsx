@@ -7,6 +7,7 @@ import {cn, formatPrice} from "@/lib/utils";
 import {Separator} from "@/components/ui/separator";
 import Link from "next/link";
 import {useShoppingCart} from "@/app/context/ShoppingCartContext";
+import Image from "next/image";
 
 type Props = {};
 const CartSheet = (props: Props) => {
@@ -42,12 +43,9 @@ const CartSheet = (props: Props) => {
                                 <>
                                     <div className={'space-y-3'}>
                                         {cartItems.map(item => (
-                                            <div key={`${item.product.id}_${item.product.selectedAttribute?.id}`}
+                                            <div key={item.id}
                                                  className={'bg-white p-3 drop-shadow-sm'}>
-                                                <CartItem
-                                                    product={item.product}
-                                                    quantity={item.quantity}
-                                                />
+                                                <CartItem item={item}/>
                                             </div>
                                         ))}
                                     </div>
@@ -56,11 +54,11 @@ const CartSheet = (props: Props) => {
                                 <>
                                     <div className={'flex h-full flex-col items-center justify-center space-y-3'}>
                                         <div>
-                                            {/*<Image width={'500'} height={'500'} src="/empty-cart-icon.webp"*/}
-                                            {/*       className={'mix-blend-darken'} alt=""/>*/}
-                                            <ShoppingBasket className={'text-emerald-600'} size={80}/>
+                                            <Image className={'h-full'} width={200} height={200} src="/images/sad-cart.svg"
+                                                     alt=""/>
                                         </div>
-                                        <p className={'font-bold'}>В корзине пусто :(</p>
+                                        <p className={'text-muted-foreground'}>В корзине пока ничего нет</p>
+
 
                                     </div>
                                 </>

@@ -1,11 +1,11 @@
 'use client'
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useCallback, useContext, useMemo} from "react";
 import {ShoppingCartContext} from "@/types/cart";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
-import {AttributeValue, CartItem, MenuItem, Product} from "@/types/types";
-import {useProductsByCategory} from "@/api/queries";
+import {AttributeValue, CartItem, OptionValue, Product} from "@/types/types";
 import {useToast} from "@/components/ui/use-toast";
 import {BadgeCheck} from "lucide-react";
+import {nanoid} from 'nanoid';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext)
 
@@ -13,31 +13,37 @@ export function useShoppingCart() {
     return useContext(ShoppingCartContext)
 }
 
+export function generateCartItemId(product: Product, selectedAttribute?: AttributeValue, selectedOptions?: OptionValue[]) {
+    const attributeId = selectedAttribute ? selectedAttribute.id : '';
+    const optionIds = selectedOptions ? selectedOptions.map((option) => option.id).join(',') : '';
+    return `${product.id}-${attributeId}-${optionIds}`;
+}
+
 export function ShoppingCartProvider({children}: { children: ReactNode }) {
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', [])
     const {toast} = useToast();
 
-    function getItemQuantity(product: Product) {
-        const item = cartItems.find((item) => isSameProduct(item.product, product));
+    const getItemQuantity = useCallback((cartItemId: string) => {
+        const item = cartItems.find((item) => item.id === cartItemId);
         return item ? item.quantity : 0;
-    }
+    }, [cartItems]);
 
-    function addToCart(product: Product) {
-        const existingItem = cartItems.find((item) =>
-            isSameProduct(item.product, product)
-        );
+    function addToCart(product: Product, selectedAttribute?: AttributeValue, selectedOptions?: OptionValue[]) {
+        const cartItemId = generateCartItemId(product, selectedAttribute, selectedOptions);
+        const existingItem = cartItems.find((item) => item.id === cartItemId);
 
         if (existingItem) {
             const updatedCartItems = cartItems.map((item) =>
-                isSameProduct(item.product, product)
-                    ? {...item, quantity: item.quantity + 1}
-                    : item
+                item.id === cartItemId ? {...item, quantity: item.quantity + 1} : item
             );
             setCartItems(updatedCartItems);
         } else {
             const newCartItem: CartItem = {
+                id: cartItemId,
                 product,
                 quantity: 1,
+                selectedAttribute,
+                selectedOptions,
             };
             setCartItems([...cartItems, newCartItem]);
             toast({
@@ -49,69 +55,80 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
         }
     }
 
-    function increaseCartQuantity(product: Product) {
-        addToCart(product);
+    function increaseCartQuantity(cartItemId: string) {
+        const existingItem = cartItems.find((item) => item.id === cartItemId);
+        if (existingItem) {
+            const updatedCartItems = cartItems.map((item) =>
+                item.id === cartItemId ? {...item, quantity: item.quantity + 1} : item
+            );
+            setCartItems(updatedCartItems);
+        }
     }
 
-    function decreaseCartQuantity(product: Product) {
-        const existingItem = cartItems.find((item) =>
-            isSameProduct(item.product, product)
-        );
-
+    function decreaseCartQuantity(cartItemId: string) {
+        const existingItem = cartItems.find((item) => item.id === cartItemId);
         if (existingItem) {
             if (existingItem.quantity === 1) {
-                removeFromCart(product);
+                removeFromCart(cartItemId);
             } else {
                 const updatedCartItems = cartItems.map((item) =>
-                    isSameProduct(item.product, product)
-                        ? {...item, quantity: item.quantity - 1}
-                        : item
+                    item.id === cartItemId ? {...item, quantity: item.quantity - 1} : item
                 );
                 setCartItems(updatedCartItems);
             }
         }
     }
 
-    function removeFromCart(product: Product) {
-        const updatedCartItems = cartItems.filter(
-            (item) => !isSameProduct(item.product, product)
-        );
+    function removeFromCart(cartItemId: string) {
+        const updatedCartItems = cartItems.filter((item) => item.id !== cartItemId);
         setCartItems(updatedCartItems);
     }
 
-
-    function isSameProduct(product1: Product, product2: Product) {
-        return (
-            product1.id === product2.id &&
-            product1.selectedAttribute?.id === product2.selectedAttribute?.id
-        );
-    }
-
-    const cartQuantity = cartItems.reduce(
-        (quantity, item) => item.quantity + quantity,
-        0
+    // const cartQuantity = cartItems.reduce(
+    //     (quantity, item) => item.quantity + quantity,
+    //     0
+    // );
+    const cartQuantity = useMemo(
+        () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0),
+        [cartItems]
     );
 
     function calculateTotalCost() {
         return cartItems.reduce((total, item) => {
-            const price = getProductPrice(item.product);
+            const price = getProductPrice(item.id);
             return total + price * item.quantity;
         }, 0);
     }
 
-    function getProductPrice(product: Product): number {
-        if (product.selectedAttribute) {
-            return parseFloat(product.selectedAttribute.price);
-        } else if (product.discount_price) {
-            return parseFloat(product.discount_price);
-        } else {
-            return parseFloat(product.regular_price);
+
+    function getProductPrice(cartItemId: string): number {
+        const item = cartItems.find((item) => item.id === cartItemId);
+        if (!item) return 0;
+
+        let price = parseFloat(item.product.regular_price);
+
+        if (item.product.discount_price) {
+            price = parseFloat(item.product.discount_price);
         }
+
+        if (item.selectedAttribute) {
+            price = parseFloat(item.selectedAttribute.price);
+        }
+
+        if (item.selectedOptions && item.selectedOptions.length > 0) {
+            const optionsPrice = item.selectedOptions.reduce(
+                (total, option) => total + parseFloat(option.option_value.price),
+                0
+            );
+            price += optionsPrice;
+        }
+
+        return price;
     }
 
-    function clearCart() {
+    const clearCart = useCallback(() => {
         setCartItems([]);
-    }
+    }, [setCartItems]);
 
     return <ShoppingCartContext.Provider
         value={{
@@ -125,7 +142,6 @@ export function ShoppingCartProvider({children}: { children: ReactNode }) {
             addToCart,
             getProductPrice,
             clearCart,
-
         }}>
         {children}
     </ShoppingCartContext.Provider>

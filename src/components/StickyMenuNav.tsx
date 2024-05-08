@@ -7,6 +7,7 @@ import {Category} from '@/types/types';
 import {cn} from "@/lib/utils";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import CartSheet from "@/components/CartSheet";
+import Image from "next/image";
 
 type Props = {
     data: Category[];
@@ -65,7 +66,7 @@ const StickyMenuNav = (props: Props) => {
                             className={cn(
                                 '  transition-transform duration-200 overflow-x-auto whitespace-nowrap',
                                 {
-                                    'translate-x-1': isSticky,
+                                    'translate-x-2': isSticky,
                                     'translate-x-0': !isSticky,
                                 }
                             )}
@@ -75,6 +76,8 @@ const StickyMenuNav = (props: Props) => {
                                     className="flex  overflow-x-auto whitespace-nowrap scroll-smooth  gap-2"
                                     ref={navRef}
                                 >
+                                    {isSticky && <Image alt={''} src={'/images/logovzh.svg'} width={30} height={30}/>}
+
                                     {!props.isLoading &&
                                         sections?.map(({slug, name}) => (
                                             <Button key={slug} asChild variant='ghost'
