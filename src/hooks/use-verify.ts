@@ -8,12 +8,7 @@ export default function useVerify() {
 
     const [verify] = useVerifyMutation();
 
-    const isCalled = useRef(false);
-
     useEffect(() => {
-        //TODO isCalled это херня или не?
-        if (isCalled.current) return;
-        isCalled.current = true;
         verify(undefined)
             .unwrap()
             .then(() => {
