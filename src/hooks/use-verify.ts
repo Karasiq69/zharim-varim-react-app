@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect} from 'react';
 import {useAppDispatch} from '@/redux/hooks';
 import {setAuth, finishInitialLoad} from '@/redux/features/authSlice';
 import {useVerifyMutation} from '@/redux/features/authApiSlice';
@@ -20,5 +20,5 @@ export default function useVerify() {
             .finally(() => {
                 dispatch(finishInitialLoad());
             });
-    }, []);
+    }, [dispatch, verify]);
 }
