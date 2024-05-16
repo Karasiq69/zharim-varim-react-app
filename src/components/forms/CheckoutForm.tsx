@@ -138,6 +138,7 @@ const CheckoutForm = ({user, isLoading}: CheckoutFormProps) => {
                                     <RadioGroupItem
                                         value="sbp"
                                         id="sbp"
+                                        disabled
                                         className="peer sr-only"
                                     />
                                     <Label
