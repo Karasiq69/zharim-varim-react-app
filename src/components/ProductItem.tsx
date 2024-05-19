@@ -40,11 +40,12 @@ const ProductItem: React.FC<ProductItemProps> = ({product}) => {
                 <div className="flex flex-col ">
                     <ProductModalTrigger>
                         <Image
-                            width={500} height={360}
+                            width={300} height={200}
                             className="rounded-sm"
                             src={productImageSrc}
                             alt={product?.product_image?.[0]?.alt_text || ''}
                             placeholder="blur"
+                            quality={80}
                             blurDataURL={blurHash}
                         />
                         <div className="mt-2 md:px-2 flex-grow">
