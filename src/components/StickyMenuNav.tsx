@@ -8,6 +8,7 @@ import {cn} from "@/lib/utils";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import CartSheet from "@/components/CartSheet";
 import Image from "next/image";
+import {Skeleton} from "@/components/ui/skeleton";
 
 type Props = {
     data: Category[];
@@ -55,7 +56,7 @@ const StickyMenuNav = (props: Props) => {
             className={cn(
                 'sticky  top-0 z-50 transition-all duration-200 overflow-x-auto scroll-smooth',
                 {
-                    'bg-white bg-opacity-75 backdrop-blur-2xl shadow-md': isSticky,
+                    'bg-white bg-opacity-75 backdrop-blur-2xl shadow-md h-18': isSticky,
                 }
             )}
         >
@@ -72,14 +73,25 @@ const StickyMenuNav = (props: Props) => {
                                 }
                             )}
                         >
-                            <div className=" ">
+                            <div>
                                 <div
                                     className="flex  overflow-x-auto whitespace-nowrap scroll-smooth  gap-2"
                                     ref={navRef}
                                 >
-
-
-                                    {!props.isLoading &&
+                                    {props.isLoading ? (
+                                        <>
+                                            <Skeleton className="w-20 h-10 rounded-md"/>
+                                            <Skeleton className="w-24 h-10 rounded-md"/>
+                                            <Skeleton className="w-20 h-10 rounded-md"/>
+                                            <Skeleton className="w-16 h-10 rounded-md"/>
+                                            <Skeleton className="w-32 h-10 rounded-md"/>
+                                            <Skeleton className="w-24 h-10 rounded-md"/>
+                                            <Skeleton className="w-20 h-10 rounded-md"/>
+                                            <Skeleton className="w-24 h-10 rounded-md"/>
+                                            <Skeleton className="w-24 h-10 rounded-md"/>
+                                            <Skeleton className="w-24 h-10 rounded-md"/>
+                                        </>
+                                    ) : (
                                         sections?.map(({slug, name}) => (
                                             <Button key={slug} asChild variant='ghost'
                                                     className={'hover:bg-gray-100  cursor-pointer'}>
@@ -94,7 +106,8 @@ const StickyMenuNav = (props: Props) => {
                                                     {name}
                                                 </Link>
                                             </Button>
-                                        ))}
+                                        ))
+                                    )}
                                 </div>
                             </div>
 
