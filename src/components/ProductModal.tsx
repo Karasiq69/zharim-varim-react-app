@@ -8,7 +8,7 @@ import {useShoppingCart} from "@/app/context/ShoppingCartContext";
 
 import AttrsSelector from "@/components/AttrsSelector";
 import AdditionsSelector from "@/components/AdditionsSelector";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {CheckedState} from "@radix-ui/react-menu";
 
 
@@ -34,11 +34,26 @@ const ProductModal: React.FC<ProductModalProps> = ({
     const {addToCart} = useShoppingCart();
 
 
-    const calculateModalPrice = () => {
-        const basePrice = selectedAttribute ? parseFloat(selectedAttribute.price) : parseFloat(product.regular_price);
-        const optionsPrice = selectedOptions.reduce((total, option) => total + parseFloat(option.option_value.price), 0);
-        return formatPrice(basePrice + optionsPrice);
-    };
+    const calculateModalPrice = useMemo(() => {
+    let basePrice = 0;
+
+    if (selectedAttribute && selectedAttribute.price) {
+      basePrice = parseFloat(selectedAttribute.price);
+    } else if (product && product.regular_price) {
+      basePrice = parseFloat(product.regular_price);
+    }
+
+    const optionsPrice = selectedOptions.reduce((total, option) => {
+      if (option.option_value && option.option_value.price) {
+        return total + parseFloat(option.option_value.price);
+      }
+      return total;
+    }, 0);
+
+    return basePrice + optionsPrice;
+  }, [selectedAttribute, product, selectedOptions]);
+
+  const modalPrice = useMemo(() => formatPrice(calculateModalPrice), [calculateModalPrice]);
 
 
     const handleAddToCart = () => {
@@ -93,9 +108,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             className={'sticky bottom-0 bg-white p-5 md:p-5 drop-shadow-mid md:drop-shadow-none'}>
                             <Separator className={'mb-3 hidden md:block'}/>
                             <div className={'flex gap-10 items-center flex-wrap justify-between'}>
-                                <h4 className={'font-bold text-2xl text-nowrap'}>
-
-                                    {formatPrice(calculateModalPrice())}</h4>
+                                <h4 className={'font-bold text-2xl text-nowrap'}>{modalPrice}</h4>
 
                                 <DialogClose asChild>
                                     <Button onClick={handleAddToCart}>В корзину</Button>
