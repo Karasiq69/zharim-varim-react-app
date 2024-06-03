@@ -23,8 +23,7 @@ export const useProducts = () => {
 export const useProductsByCategory = () => {
     return useQuery<Category[]>({
         queryKey: ['productsByCat'],
-        queryFn: getProductsByCategory,
-        staleTime: 1000 * 60 * 60 * 24,
+        queryFn: getProductsByCategory
     })
 }
 export const useGetLastOrder = () => {
